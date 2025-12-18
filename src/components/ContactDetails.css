@@ -1,0 +1,336 @@
+/* Contact Details Window - Theme Support */
+.contact-details-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 10001;
+}
+
+.contact-details-window {
+    position: absolute;
+    min-width: 400px;
+    min-height: 350px;
+    background: var(--dialog-bg);
+    border: 1px solid var(--dialog-border);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 12px;
+    color: var(--text-primary);
+}
+
+/* Resize Handle */
+.contact-details-window .resize-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    cursor: se-resize;
+    background: linear-gradient(135deg, transparent 50%, var(--border-secondary) 50%, var(--border-secondary) 60%, transparent 60%, transparent 70%, var(--border-secondary) 70%, var(--border-secondary) 80%, transparent 80%);
+}
+
+/* Title Bar */
+.contact-details-titlebar {
+    height: 32px;
+    background: var(--dialog-header-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 0 10px;
+    cursor: move;
+    user-select: none;
+    border-bottom: 1px solid var(--dialog-border);
+}
+
+.contact-details-titlebar .titlebar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-details-titlebar .titlebar-text {
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.contact-details-titlebar .titlebar-controls {
+    display: flex;
+    height: 100%;
+}
+
+.contact-details-titlebar .titlebar-btn {
+    width: 46px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-details-titlebar .titlebar-btn:hover {
+    background: var(--bg-hover);
+}
+
+.contact-details-titlebar .titlebar-btn.close:hover {
+    background: #c42b1c;
+    color: #ffffff;
+}
+
+/* Contact Header */
+.contact-header {
+    padding: 16px 20px;
+    background: var(--dialog-content-bg);
+    border-bottom: 1px solid var(--dialog-border);
+}
+
+.contact-name {
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin: 0 0 2px 0;
+    font-family: 'Segoe UI Light', 'Segoe UI', sans-serif;
+}
+
+.contact-title {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+/* Tabs */
+.contact-tabs {
+    display: flex;
+    background: var(--dialog-bg);
+    padding: 2px 8px 0 8px;
+    gap: 0;
+    border-bottom: 1px solid var(--dialog-border);
+}
+
+.contact-tab {
+    padding: 6px 10px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-bottom: none;
+    font-size: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: -1px;
+}
+
+.contact-tab:hover {
+    background: var(--bg-hover);
+}
+
+.contact-tab.active {
+    background: var(--dialog-content-bg);
+    border-color: var(--dialog-border);
+    border-bottom: 1px solid var(--dialog-content-bg);
+}
+
+/* Tab Content */
+.contact-content {
+    flex: 1;
+    padding: 12px 16px;
+    overflow-y: auto;
+    background: var(--dialog-content-bg);
+    border-left: 1px solid var(--dialog-border);
+    border-right: 1px solid var(--dialog-border);
+    margin: 0 8px;
+}
+
+.tab-content {
+    font-size: 12px;
+}
+
+/* Form Sections */
+.form-section {
+    border: 1px solid var(--dialog-border);
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    background: var(--dialog-content-bg);
+}
+
+.form-section legend {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-primary);
+    padding: 0 4px;
+}
+
+/* Form Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto 1fr;
+    gap: 6px 8px;
+    align-items: center;
+}
+
+/* Two Column Layout */
+.form-two-columns {
+    display: flex;
+    gap: 24px;
+    margin-top: 12px;
+}
+
+.form-column {
+    flex: 1;
+}
+
+/* Form Rows */
+.tab-content .form-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.tab-content .form-row.full-width {
+    grid-column: span 4;
+}
+
+.tab-content .form-row label {
+    min-width: 80px;
+    font-size: 12px;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+.tab-content .form-row input,
+.tab-content .form-row textarea {
+    flex: 1;
+    height: 23px;
+    border: 1px solid var(--dialog-input-border);
+    background: var(--dialog-input-bg);
+    color: var(--text-primary);
+    padding: 2px 6px;
+    font-size: 12px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.tab-content .form-row input:focus,
+.tab-content .form-row textarea:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+}
+
+.tab-content .form-row input[readonly],
+.tab-content .form-row textarea[readonly] {
+    background: var(--bg-secondary);
+}
+
+.tab-content .form-row input.small {
+    width: 40px;
+    flex: none;
+}
+
+.tab-content .form-row textarea {
+    height: 60px;
+    resize: none;
+}
+
+.notes-textarea {
+    width: 100%;
+    height: 80px;
+    border: 1px solid var(--dialog-input-border);
+    background: var(--dialog-input-bg);
+    color: var(--text-primary);
+    padding: 4px 6px;
+    font-size: 12px;
+    resize: none;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* List Box */
+.list-box {
+    border: 1px solid var(--dialog-input-border);
+    background: var(--dialog-content-bg);
+    min-height: 60px;
+    padding: 2px;
+}
+
+.list-box.large {
+    min-height: 150px;
+}
+
+.tab-content .placeholder-text {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 11px;
+    margin: 8px;
+}
+
+/* Email Item in list */
+.email-item-detail {
+    padding: 2px 6px;
+    display: flex;
+    gap: 8px;
+}
+
+.email-type {
+    color: var(--text-tertiary);
+}
+
+.email-address {
+    color: var(--accent-primary);
+}
+
+/* Footer */
+.contact-footer {
+    padding: 10px 16px;
+    background: var(--dialog-bg);
+    border-top: 1px solid var(--dialog-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left,
+.footer-right {
+    display: flex;
+    gap: 6px;
+}
+
+.footer-btn {
+    min-width: 75px;
+    height: 23px;
+    padding: 0 12px;
+    border: 1px solid var(--dialog-input-border);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-primary);
+}
+
+.footer-btn.primary {
+    background: var(--accent-primary);
+    color: #ffffff;
+    border-color: var(--accent-primary);
+}
+
+.footer-btn.primary:hover {
+    background: var(--accent-hover);
+}
+
+.footer-btn.disabled {
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    border-color: var(--dialog-input-border);
+    cursor: not-allowed;
+}

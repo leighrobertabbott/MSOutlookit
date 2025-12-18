@@ -1,0 +1,149 @@
+/* Outlook Theme System - CSS Custom Properties */
+/* Pixel-perfect colors extracted from real Outlook */
+
+/* Dark Theme (Black/Dark Gray) */
+:root,
+[data-theme="dark"] {
+    /* Backgrounds */
+    --bg-primary: #1e1e1e;
+    --bg-secondary: #252526;
+    --bg-tertiary: #2d2d30;
+    --bg-hover: #3e3e42;
+    --bg-selected: #094771;
+    --bg-input: #3c3c3c;
+
+    /* Text */
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-tertiary: #a0a0a0;
+    --text-muted: #858585;
+    --text-link: #60cdff;
+
+    /* Borders */
+    --border-primary: #3e3e42;
+    --border-secondary: #4a4a4a;
+    --border-input: #5a5a5a;
+
+    /* Accent */
+    --accent-primary: #0078d4;
+    --accent-hover: #106ebe;
+    --accent-light: #60cdff;
+
+    /* Components */
+    --toolbar-bg: #2d2d30;
+    --qat-bg: #1e1e1e;
+    --ribbon-tabs-bg: #2d2d30;
+    --ribbon-content-bg: #1e1e1e;
+    --sidebar-bg: #252526;
+    --nav-rail-bg: #1e1e1e;
+    --email-list-bg: #1e1e1e;
+    --email-item-bg: #1e1e1e;
+    --email-item-hover: #2a2d2e;
+    --reading-pane-bg: #1e1e1e;
+    --status-bar-bg: #007acc;
+    --status-bar-text: #ffffff;
+
+    /* Dialog Windows */
+    --dialog-bg: #2b2b2b;
+    --dialog-header-bg: #1f1f1f;
+    --dialog-sidebar-bg: #1f1f1f;
+    --dialog-content-bg: #2b2b2b;
+    --dialog-border: #4a4a4a;
+    --dialog-input-bg: #3a3a3a;
+    --dialog-input-border: #5a5a5a;
+
+    /* Scrollbar */
+    --scrollbar-bg: #2d2d30;
+    --scrollbar-thumb: #5a5a5a;
+}
+
+/* Light Theme (White/Colorful) - Pixel-perfect match to real Outlook */
+[data-theme="light"] {
+    /* Backgrounds - from real Outlook screenshots */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f3f3f3;
+    --bg-tertiary: #f9f9f9;
+    --bg-hover: #e5e5e5;
+    --bg-selected: #cce8ff;
+    --bg-input: #ffffff;
+
+    /* Text - exact Outlook colors */
+    --text-primary: #1a1a1a;
+    --text-secondary: #333333;
+    --text-tertiary: #666666;
+    --text-muted: #888888;
+    --text-link: #0066cc;
+
+    /* Borders */
+    --border-primary: #e5e5e5;
+    --border-secondary: #d1d1d1;
+    --border-input: #8a8a8a;
+
+    /* Accent - Office blue */
+    --accent-primary: #0078d4;
+    --accent-hover: #106ebe;
+    --accent-light: #0078d4;
+
+    /* Components - exact from screenshots */
+    --toolbar-bg: #f3f3f3;
+    --qat-bg: #f3f3f3;
+    --ribbon-tabs-bg: #f3f3f3;
+    --ribbon-content-bg: #f3f3f3;
+    --sidebar-bg: #f8f8f8;
+    --nav-rail-bg: #f3f3f3;
+    --email-list-bg: #ffffff;
+    --email-item-bg: #ffffff;
+    --email-item-hover: #f0f0f0;
+    --reading-pane-bg: #ffffff;
+    --status-bar-bg: #f3f3f3;
+    --status-bar-text: #333333;
+
+    /* Dialog Windows - Light theme */
+    --dialog-bg: #f3f3f3;
+    --dialog-header-bg: #f3f3f3;
+    --dialog-sidebar-bg: #f8f8f8;
+    --dialog-content-bg: #ffffff;
+    --dialog-border: #d1d1d1;
+    --dialog-input-bg: #ffffff;
+    --dialog-input-border: #8a8a8a;
+
+    /* Scrollbar */
+    --scrollbar-bg: #f0f0f0;
+    --scrollbar-thumb: #c1c1c1;
+}
+
+/* Apply base theme colors */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Custom scrollbar theming */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border-secondary);
+}
+
+/* SVG icon color inheritance for light theme */
+[data-theme="light"] svg {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .nav-rail-icon svg,
+[data-theme="light"] .qat-button svg,
+[data-theme="light"] .ribbon-button svg {
+    color: inherit;
+}

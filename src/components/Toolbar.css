@@ -1,0 +1,569 @@
+/* Quick Access Toolbar - Theme Support */
+.quick-access-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: var(--qat-bg);
+  border-bottom: 1px solid var(--border-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  z-index: 1000;
+}
+
+.qat-left {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.outlook-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+
+.qat-button {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  padding: 0;
+  transition: background-color 0.15s;
+}
+
+.qat-button:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.qat-dropdown {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  margin-left: 4px;
+  cursor: pointer;
+}
+
+.qat-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: 3px;
+  padding: 4px 8px;
+  width: 100%;
+  max-width: 400px;
+  gap: 8px;
+  position: relative;
+}
+
+.search-container:focus-within {
+  border-color: var(--accent-primary);
+  outline: 1px solid var(--accent-primary);
+}
+
+.search-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  color: var(--text-primary);
+  font-family: 'Segoe UI', sans-serif;
+  min-width: 0;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.qat-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.try-new-outlook-inline {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-family: 'Segoe UI', sans-serif;
+  white-space: nowrap;
+}
+
+.toggle-switch-inline {
+  cursor: pointer;
+}
+
+.toggle-switch-inline .toggle-switch-track {
+  width: 40px;
+  height: 20px;
+  background: var(--border-primary);
+  border-radius: 10px;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.toggle-switch-inline .toggle-switch-thumb {
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  transition: left 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.copilot-button-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color 0.15s;
+}
+
+.copilot-button-inline:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.user-avatar-small {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #0078d4;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.notification-button {
+  margin-right: 4px;
+}
+
+.window-minimize,
+.window-maximize,
+.window-close {
+  width: 46px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.window-minimize:hover {
+  background: var(--bg-hover);
+}
+
+.window-maximize:hover {
+  background: var(--bg-hover);
+}
+
+.window-close:hover {
+  background: #e81123;
+}
+
+.window-minimize::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 1px;
+  background: var(--text-secondary);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.window-maximize::after {
+  content: '';
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--text-secondary);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.window-close::after,
+.window-close::before {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 12px;
+  background: var(--text-secondary);
+  top: 50%;
+  left: 50%;
+}
+
+.window-close::after {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.window-close::before {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.window-close:hover::after,
+.window-close:hover::before {
+  background: #ffffff;
+}
+
+
+/* Ribbon Tabs */
+.ribbon-tabs {
+  position: fixed;
+  top: 32px;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: var(--ribbon-tabs-bg);
+  border-bottom: 1px solid var(--border-primary);
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  z-index: 998;
+}
+
+.tab-icon-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-right: 8px;
+  padding-right: 8px;
+  border-right: 1px solid var(--border-primary);
+}
+
+.tab-icon {
+  width: 16px;
+  height: 16px;
+  background: #0078d4;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.tab-icon.mail-icon.active {
+  background: #0078d4;
+}
+
+.tab-icon.calendar-icon {
+  background: #ff6b6b;
+}
+
+.ribbon-tab {
+  padding: 6px 16px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.ribbon-tab:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.ribbon-tab.active {
+  color: var(--text-primary);
+  background: var(--bg-primary);
+}
+
+.ribbon-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #0078d4;
+}
+
+/* Ribbon Content */
+.ribbon-content {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  height: 44px;
+  background: var(--ribbon-content-bg);
+  border-bottom: 1px solid var(--border-primary);
+  z-index: 997;
+}
+
+.ribbon-panel {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 8px;
+}
+
+.ribbon-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color 0.15s;
+  height: 32px;
+}
+
+.ribbon-button:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.ribbon-button.large {
+  padding: 6px 16px;
+  font-weight: 500;
+}
+
+.new-email-button {
+  background: #0078d4;
+  color: #ffffff;
+}
+
+.new-email-button:hover {
+  background: #106ebe;
+}
+
+.ribbon-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.ribbon-separator {
+  width: 1px;
+  height: 24px;
+  background: #3e3e42;
+  margin: 0 4px;
+}
+
+.ribbon-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 4px;
+}
+
+.ribbon-group-label {
+  font-size: 10px;
+  color: #858585;
+  padding: 0 4px;
+}
+
+/* Icon-only ribbon button */
+.ribbon-button.icon-only {
+  padding: 4px 6px;
+  min-width: 28px;
+  height: 28px;
+}
+
+.ribbon-button.icon-only .ribbon-icon {
+  margin: 0;
+}
+
+/* Dropdown arrow for buttons */
+.ribbon-button-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ribbon-button-dropdown .dropdown-arrow {
+  width: 8px;
+  height: 8px;
+  margin-left: 2px;
+}
+
+/* Search suggestions dropdown */
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #252526;
+  border: 1px solid #3e3e42;
+  border-radius: 4px;
+  margin-top: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 2000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.search-suggestion-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  gap: 10px;
+}
+
+.search-suggestion-item:hover,
+.search-suggestion-item.selected {
+  background: #094771;
+}
+
+.suggestion-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #3e3e42;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 10px;
+  color: #ff6b35;
+  font-weight: 600;
+}
+
+.suggestion-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.suggestion-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.suggestion-name {
+  font-size: 13px;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-meta {
+  font-size: 11px;
+  color: #858585;
+}
+
+.search-loading {
+  color: #858585;
+  font-size: 12px;
+  padding-left: 4px;
+}
+
+/* Vertical ribbon buttons for Help tab */
+.ribbon-button-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  color: #cccccc;
+  font-size: 11px;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color 0.15s;
+  min-width: 60px;
+  height: 80px;
+}
+
+.ribbon-button-vertical:hover {
+  background: #2d2d30;
+  color: #ffffff;
+}
+
+.ribbon-button-vertical span {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ribbon-icon-large {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.ribbon-button-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 80px;
+  background: transparent;
+  border: none;
+  color: #858585;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.ribbon-button-more:hover {
+  background: #2d2d30;
+  color: #ffffff;
+}
+
+.help-ribbon {
+  gap: 4px;
+}
+
+.help-ribbon .ribbon-separator {
+  height: 60px;
+  margin: 0 8px;
+}

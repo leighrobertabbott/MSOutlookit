@@ -1,0 +1,60 @@
+.outlook-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: #1e1e1e;
+  overflow: hidden;
+}
+
+.outlook-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  margin-top: 108px;
+  /* Toolbar (32px) + ribbon tabs (32px) + ribbon content (44px) */
+  margin-bottom: 23px;
+  /* Status bar height */
+}
+
+/* Resizable panel containers */
+.sidebar-container {
+  display: flex;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.sidebar-container .sidebar {
+  width: 100%;
+}
+
+.email-list-container {
+  display: flex;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.email-list-container .email-list {
+  width: 100%;
+}
+
+/* Resize handles */
+.resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  cursor: col-resize;
+  background: transparent;
+  z-index: 10;
+  transition: background-color 0.15s;
+}
+
+.resize-handle:hover {
+  background: #0078d4;
+}
+
+.resize-handle:active {
+  background: #0078d4;
+}

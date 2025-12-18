@@ -1,0 +1,327 @@
+/* Outlook Options Dialog - Theme Support */
+.options-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+}
+
+.options-window {
+    position: absolute;
+    width: 780px;
+    height: 620px;
+    background: var(--dialog-bg);
+    border: 1px solid var(--dialog-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 12px;
+    color: var(--text-primary);
+}
+
+/* Title Bar */
+.options-titlebar {
+    height: 32px;
+    background: var(--dialog-header-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 0 12px;
+    cursor: move;
+    user-select: none;
+    border-bottom: 1px solid var(--dialog-border);
+}
+
+.titlebar-text {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
+.titlebar-controls {
+    display: flex;
+    height: 100%;
+}
+
+.titlebar-btn {
+    width: 46px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titlebar-btn.help {
+    font-size: 14px;
+}
+
+.titlebar-btn:hover {
+    background: var(--bg-hover);
+}
+
+.titlebar-btn.close:hover {
+    background: #c42b1c;
+    color: #ffffff;
+}
+
+/* Body Layout */
+.options-body {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+/* Left Sidebar */
+.options-sidebar {
+    width: 160px;
+    background: var(--dialog-sidebar-bg);
+    border-right: 1px solid var(--dialog-border);
+    padding: 4px 0;
+    flex-shrink: 0;
+}
+
+.options-category {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 12px;
+    transition: background-color 0.15s;
+}
+
+.options-category:hover {
+    background: var(--bg-hover);
+}
+
+.options-category.active {
+    background: var(--accent-primary);
+    color: #ffffff;
+}
+
+/* Right Content */
+.options-content {
+    flex: 1;
+    overflow-y: auto;
+    background: var(--dialog-content-bg);
+}
+
+/* Options Panel */
+.options-panel {
+    padding: 16px 20px;
+}
+
+.options-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--dialog-border);
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+/* Sections */
+.options-section {
+    margin-bottom: 20px;
+}
+
+.options-section h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 10px 0;
+    padding-bottom: 4px;
+}
+
+/* Checkbox and Radio Rows */
+.checkbox-row,
+.radio-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.checkbox-row.indent {
+    margin-left: 20px;
+}
+
+.checkbox-row input,
+.radio-row input {
+    margin: 0;
+    accent-color: var(--accent-primary);
+    width: 14px;
+    height: 14px;
+}
+
+.checkbox-row span,
+.radio-row span {
+    font-size: 12px;
+}
+
+.info-icon {
+    color: var(--accent-primary);
+    font-size: 11px;
+    margin-left: 4px;
+}
+
+/* Option Group */
+.option-group {
+    margin-bottom: 12px;
+    padding-left: 4px;
+}
+
+.option-label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+    font-size: 12px;
+}
+
+/* Form Rows */
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.form-row.inline {
+    margin-bottom: 10px;
+}
+
+.form-row>label {
+    min-width: 100px;
+    color: var(--text-primary);
+    font-size: 12px;
+}
+
+.form-row input[type="text"],
+.form-row select {
+    height: 26px;
+    background: var(--dialog-input-bg);
+    border: 1px solid var(--dialog-input-border);
+    color: var(--text-primary);
+    padding: 0 8px;
+    font-size: 12px;
+    font-family: 'Segoe UI', sans-serif;
+    min-width: 180px;
+}
+
+.form-row input[type="text"]:focus,
+.form-row select:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+}
+
+.form-row input.small {
+    width: 50px;
+    min-width: 50px;
+}
+
+.form-row select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%23666666' d='M0 2l4 4 4-4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 24px;
+    cursor: pointer;
+}
+
+.checkbox-inline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 12px;
+    color: var(--text-primary);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.checkbox-inline input {
+    margin: 0;
+    accent-color: var(--accent-primary);
+}
+
+/* Description Text */
+.option-description {
+    color: var(--text-tertiary);
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.placeholder-text {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Buttons */
+.options-btn {
+    height: 26px;
+    padding: 0 16px;
+    border: 1px solid var(--dialog-input-border);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.options-btn:hover {
+    background: var(--bg-hover);
+}
+
+.options-btn.primary {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: #ffffff;
+    min-width: 75px;
+}
+
+.options-btn.primary:hover {
+    background: var(--accent-hover);
+}
+
+.options-btn.secondary {
+    background: var(--bg-secondary);
+}
+
+/* Footer */
+.options-footer {
+    padding: 12px 16px;
+    background: var(--dialog-header-bg);
+    border-top: 1px solid var(--dialog-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* Scrollbar Styling */
+.options-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.options-content::-webkit-scrollbar-track {
+    background: var(--dialog-bg);
+}
+
+.options-content::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 0;
+}
+
+.options-content::-webkit-scrollbar-thumb:hover {
+    background: var(--border-secondary);
+}

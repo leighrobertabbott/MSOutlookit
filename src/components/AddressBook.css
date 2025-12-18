@@ -1,0 +1,304 @@
+/* Address Book Window - Theme Support */
+.address-book-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 10000;
+}
+
+.address-book-window {
+    position: absolute;
+    min-width: 600px;
+    min-height: 400px;
+    background: var(--dialog-bg);
+    border: 1px solid var(--dialog-border);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 12px;
+    color: var(--text-primary);
+}
+
+/* Resize Handle */
+.address-book-window .resize-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    cursor: se-resize;
+    background: linear-gradient(135deg, transparent 50%, var(--border-secondary) 50%, var(--border-secondary) 60%, transparent 60%, transparent 70%, var(--border-secondary) 70%, var(--border-secondary) 80%, transparent 80%);
+}
+
+/* Title Bar */
+.address-book-titlebar {
+    height: 32px;
+    background: var(--dialog-header-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 0 10px;
+    cursor: move;
+    user-select: none;
+    border-bottom: 1px solid var(--dialog-border);
+}
+
+.address-book-titlebar .titlebar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.address-book-titlebar .titlebar-text {
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.address-book-titlebar .titlebar-controls {
+    display: flex;
+    height: 100%;
+}
+
+.address-book-titlebar .titlebar-btn {
+    width: 46px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.address-book-titlebar .titlebar-btn:hover {
+    background: var(--bg-hover);
+}
+
+.address-book-titlebar .titlebar-btn.close:hover {
+    background: #c42b1c;
+    color: #ffffff;
+}
+
+/* Menu Bar */
+.address-book-menubar {
+    height: 22px;
+    background: var(--dialog-bg);
+    border-bottom: 1px solid var(--dialog-border);
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+}
+
+.menu-item {
+    padding: 2px 8px;
+    font-size: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background: var(--bg-hover);
+}
+
+/* Search Bar */
+.address-book-searchbar {
+    padding: 8px 12px;
+    background: var(--dialog-bg);
+    border-bottom: 1px solid var(--dialog-border);
+}
+
+.search-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.search-row:last-child {
+    margin-bottom: 0;
+}
+
+.search-row>label {
+    font-size: 12px;
+    color: var(--text-primary);
+    min-width: 50px;
+}
+
+.search-options {
+    display: flex;
+    gap: 16px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.radio-option input {
+    margin: 0;
+    accent-color: var(--accent-primary);
+}
+
+.address-book-label {
+    margin-left: auto;
+}
+
+.address-book-searchbar .search-input {
+    width: 200px;
+    height: 23px;
+    border: 1px solid var(--dialog-input-border);
+    background: var(--dialog-input-bg);
+    color: var(--text-primary);
+    padding: 0 6px;
+    font-size: 12px;
+}
+
+.address-book-searchbar .search-input:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+}
+
+.address-book-select {
+    height: 23px;
+    border: 1px solid var(--dialog-input-border);
+    background: var(--dialog-input-bg);
+    color: var(--text-primary);
+    padding: 0 6px;
+    font-size: 12px;
+    min-width: 300px;
+}
+
+.advanced-find-btn {
+    height: 23px;
+    padding: 0 12px;
+    border: 1px solid var(--dialog-input-border);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.advanced-find-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-primary);
+}
+
+/* Contact List Table */
+.address-book-table-container {
+    flex: 1;
+    overflow: auto;
+    background: var(--dialog-content-bg);
+    border: 1px solid var(--dialog-border);
+    margin: 0 8px;
+}
+
+.address-book-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.address-book-table thead {
+    position: sticky;
+    top: 0;
+    background: var(--dialog-bg);
+    z-index: 1;
+}
+
+.address-book-table th {
+    text-align: left;
+    padding: 3px 6px;
+    border: 1px solid var(--dialog-border);
+    font-weight: 400;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+}
+
+.address-book-table th:hover {
+    background: var(--bg-hover);
+}
+
+.address-book-table td {
+    padding: 2px 6px;
+    border-bottom: 1px solid var(--border-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-primary);
+}
+
+.address-book-table tbody tr:hover {
+    background: var(--bg-hover);
+}
+
+.address-book-table tbody tr.selected {
+    background: var(--accent-primary);
+    color: #ffffff;
+}
+
+.address-book-table tbody tr.selected td {
+    color: #ffffff;
+}
+
+/* Column widths */
+.col-icon {
+    width: 24px;
+}
+
+.col-name {
+    min-width: 140px;
+}
+
+.col-title {
+    min-width: 110px;
+}
+
+.col-phone {
+    min-width: 100px;
+}
+
+.col-location {
+    min-width: 100px;
+}
+
+.col-department {
+    min-width: 110px;
+}
+
+.col-email {
+    min-width: 170px;
+}
+
+.col-company {
+    min-width: 170px;
+}
+
+.col-alias {
+    min-width: 90px;
+}
+
+/* Status Bar */
+.address-book-statusbar {
+    height: 20px;
+    background: var(--dialog-bg);
+    border-top: 1px solid var(--dialog-border);
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
