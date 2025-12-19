@@ -2,25 +2,37 @@
   display: flex;
   width: 100%;
   height: 100%;
-  background: #1e1e1e;
-  color: #cccccc;
+  background: var(--bg-primary, #1e1e1e);
+  color: var(--text-primary, #cccccc);
   font-family: 'Segoe UI', sans-serif;
 }
 
+[data-theme="light"] .account-info-window {
+  background: #f3f3f3;
+  color: #1a1a1a;
+}
+
+/* Left Navigation */
 .account-info-nav {
-  width: 220px;
-  background: #252526;
-  border-right: 1px solid #3e3e42;
+  width: 200px;
+  background: var(--bg-secondary, #252526);
+  border-right: 1px solid var(--border-primary, #3e3e42);
   display: flex;
   flex-direction: column;
   padding: 8px 0;
+  flex-shrink: 0;
+}
+
+[data-theme="light"] .account-info-nav {
+  background: #0078d4;
+  border-right-color: #005a9e;
 }
 
 .nav-back-button {
   padding: 8px 16px;
   background: transparent;
   border: none;
-  color: #cccccc;
+  color: var(--text-secondary, #cccccc);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -28,39 +40,37 @@
   transition: background-color 0.15s;
 }
 
+[data-theme="light"] .nav-back-button {
+  color: #ffffff;
+}
+
 .nav-back-button:hover {
-  background: #2d2d30;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .nav-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 16px;
-  color: #cccccc;
+  padding: 10px 20px;
+  color: var(--text-secondary, #cccccc);
   font-size: 13px;
   cursor: pointer;
   transition: background-color 0.15s;
   position: relative;
 }
 
+[data-theme="light"] .nav-item {
+  color: rgba(255, 255, 255, 0.9);
+}
+
 .nav-item:hover {
-  background: #2a2d2e;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .nav-item.active {
-  background: #094771;
+  background: rgba(255, 255, 255, 0.2);
   color: #ffffff;
-}
-
-.nav-item.active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: #0078d4;
 }
 
 .nav-icon {
@@ -71,164 +81,254 @@
 
 .nav-divider {
   height: 1px;
-  background: #3e3e42;
+  background: rgba(255, 255, 255, 0.2);
   margin: 8px 0;
 }
 
+/* Main Content */
 .account-info-content {
   flex: 1;
   overflow-y: auto;
-  padding: 32px 40px;
-  background: #1e1e1e;
+  padding: 24px 40px;
+  background: var(--bg-primary, #1e1e1e);
+}
+
+[data-theme="light"] .account-info-content {
+  background: #f3f3f3;
 }
 
 .account-info-title {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 300;
-  color: #ffffff;
-  margin-bottom: 32px;
+  color: var(--text-primary, #ffffff);
+  margin-bottom: 24px;
   font-family: 'Segoe UI', sans-serif;
 }
 
-.account-section {
-  margin-bottom: 32px;
+[data-theme="light"] .account-info-title {
+  color: #1a1a1a;
 }
 
-.account-email {
+/* Email Account Box */
+.email-account-box {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--bg-secondary, #2d2d30);
+  border: 1px solid var(--border-primary, #3e3e42);
+  border-radius: 2px;
+  margin-bottom: 8px;
+  cursor: pointer;
 }
 
-.email-icon {
-  width: 24px;
-  height: 24px;
+[data-theme="light"] .email-account-box {
+  background: #ffffff;
+  border-color: #d1d1d1;
+}
+
+.email-account-icon {
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
 }
 
-.email-info {
+.email-account-info {
   flex: 1;
 }
 
-.email-address {
-  font-size: 15px;
+.email-account-address {
+  font-size: 14px;
   font-weight: 500;
-  color: #ffffff;
-  margin-bottom: 4px;
+  color: var(--text-primary, #ffffff);
 }
 
-.email-type {
-  font-size: 13px;
-  color: #858585;
+[data-theme="light"] .email-account-address {
+  color: #1a1a1a;
 }
 
-.add-account-button {
+.email-account-type {
+  font-size: 12px;
+  color: var(--text-muted, #858585);
+}
+
+.email-account-chevron {
+  color: var(--text-muted, #858585);
+}
+
+.add-account-btn {
   padding: 6px 16px;
-  background: #0078d4;
-  color: #ffffff;
-  border: none;
+  background: transparent;
+  color: #0078d4;
+  border: 1px solid #d1d1d1;
   border-radius: 2px;
   font-size: 13px;
   font-family: 'Segoe UI', sans-serif;
   cursor: pointer;
-  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+[data-theme="light"] .add-account-btn {
+  background: #ffffff;
+}
+
+.add-account-btn:hover {
+  background: rgba(0, 120, 212, 0.1);
+}
+
+/* Info Sections with Button Layout */
+.info-section {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border-primary, #3e3e42);
+  align-items: flex-start;
+}
+
+[data-theme="light"] .info-section {
+  border-top-color: #d1d1d1;
+}
+
+.section-button-wrapper {
+  position: relative;
+}
+
+.section-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  min-height: 90px;
+  padding: 12px 8px;
+  background: var(--bg-secondary, #2d2d30);
+  border: 1px solid var(--border-primary, #3e3e42);
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+  flex-shrink: 0;
   transition: background-color 0.15s;
 }
 
-.add-account-button:hover {
-  background: #106ebe;
+[data-theme="light"] .section-button {
+  background: #ffffff;
+  border-color: #d1d1d1;
+}
+
+.section-button:hover {
+  background: var(--bg-tertiary, #3e3e42);
+}
+
+[data-theme="light"] .section-button:hover {
+  background: #e5e5e5;
+}
+
+.section-button svg {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 8px;
+  color: var(--text-secondary, #aaaaaa);
+}
+
+.section-button-label {
+  font-size: 11px;
+  color: #0078d4;
+  line-height: 1.3;
+}
+
+.chevron-text {
+  color: var(--text-muted, #858585);
+  font-size: 10px;
+}
+
+.section-content {
+  flex: 1;
+  min-width: 0;
 }
 
 .section-title {
-  font-size: 18px;
-  font-weight: 400;
-  color: #ffffff;
-  margin-bottom: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-primary, #ffffff);
+  margin-bottom: 6px;
   font-family: 'Segoe UI', sans-serif;
+}
+
+[data-theme="light"] .section-title {
+  color: #1a1a1a;
 }
 
 .section-description {
   font-size: 13px;
-  color: #858585;
-  margin-bottom: 16px;
+  color: var(--text-muted, #858585);
+  margin-bottom: 12px;
   line-height: 1.5;
 }
 
-.settings-item {
+[data-theme="light"] .section-description {
+  color: #666666;
+}
+
+.section-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.section-links li {
+  font-size: 13px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 12px;
-  background: #2d2d30;
-  border: 1px solid #3e3e42;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: background-color 0.15s;
-  margin-bottom: 12px;
-  width: fit-content;
+  gap: 6px;
 }
 
-.settings-item:hover {
-  background: #3e3e42;
+.section-links li::before {
+  content: '■';
+  color: #0078d4;
+  font-size: 8px;
 }
 
-.settings-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  color: #cccccc;
+.section-links li.link-url::before {
+  content: '';
 }
 
-.settings-label {
-  font-size: 13px;
-  color: #cccccc;
-  font-weight: 500;
+.section-links li.link-url {
+  color: var(--text-muted, #858585);
+  margin-left: 14px;
 }
 
-.dropdown-icon {
-  width: 12px;
-  height: 12px;
-  margin-left: auto;
-  color: #858585;
-}
-
-.settings-links {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.settings-link {
-  font-size: 13px;
+.section-links a {
   color: #0078d4;
   text-decoration: none;
 }
 
-.settings-link:hover {
+.section-links a:hover {
   text-decoration: underline;
 }
 
-.profile-picture-section {
+/* Profile Avatar */
+.profile-avatar-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  margin-top: 16px;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
-.profile-picture-large {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+.profile-avatar-large {
+  width: 90px;
+  height: 90px;
+  border-radius: 6px;
   background: #0078d4;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 36px;
+  font-weight: 400;
+  border: 3px solid #005a9e;
 }
 
 .change-link {
@@ -241,27 +341,31 @@
   text-decoration: underline;
 }
 
-.storage-bar-container {
-  margin-top: 16px;
-}
-
-.storage-bar-label {
-  font-size: 13px;
-  color: #cccccc;
+/* Storage Bar */
+.storage-bar {
+  width: 300px;
+  height: 10px;
+  background: var(--bg-secondary, #2d2d30);
+  border: 1px solid var(--border-primary, #3e3e42);
+  overflow: hidden;
   margin-bottom: 8px;
 }
 
-.storage-bar {
-  width: 300px;
-  height: 8px;
-  background: #2d2d30;
-  border-radius: 4px;
-  overflow: hidden;
+[data-theme="light"] .storage-bar {
+  background: #ffffff;
+  border-color: #d1d1d1;
 }
 
 .storage-bar-fill {
   height: 100%;
   background: #0078d4;
-  border-radius: 4px;
 }
 
+.storage-label {
+  font-size: 13px;
+  color: var(--text-muted, #858585);
+}
+
+.storage-label::first-letter {
+  color: #0078d4;
+}

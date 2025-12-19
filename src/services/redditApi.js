@@ -220,9 +220,9 @@ export async function searchSubreddits(query) {
 export function formatPostAsEmail(post) {
   // Use fakeContacts instead of hardcoded names
   const randomContact = fakeContacts[Math.floor(Math.random() * fakeContacts.length)];
-  const randomName = randomContact.department
-    ? `${randomContact.displayName} - ${randomContact.department}`
-    : randomContact.displayName;
+
+  // Display name only (no username in parentheses to look more like a real email)
+  const senderName = randomContact.displayName;
 
   const author = post.author || '[deleted]';
   const title = post.title || 'No title';
@@ -244,16 +244,33 @@ export function formatPostAsEmail(post) {
       .replace(/&amp;/g, '&');
   }
 
+  // Create plain text preview by stripping HTML tags
+  let plainTextPreview = selftext || post.url || '';
+  // Strip HTML tags
+  plainTextPreview = plainTextPreview.replace(/<[^>]*>/g, '');
+  // Normalize whitespace
+  plainTextPreview = plainTextPreview.replace(/\s+/g, ' ').trim();
+  // Decode any remaining HTML entities
+  plainTextPreview = plainTextPreview
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#x27;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&')
+    .replace(/&nbsp;/g, ' ');
+
   return {
     id: post.name,
-    from: `${randomName} (${author})`,
-    subject: `(RE:^${score}) ${title}`,
+    from: senderName,              // Clean sender name only
+    subject: title,                 // Just the title, no score prefix
     subreddit: subreddit,
     domain: domain,
     score: score,
     author: author,
     url: post.url,
     selftext: selftext,
+    plainTextPreview: plainTextPreview, // Clean preview text
     created: post.created_utc,
     numComments: post.num_comments,
     nsfw: post.over_18 || false,

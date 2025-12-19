@@ -1,13 +1,42 @@
-import React, { useState } from 'react';
-import { ThemeProvider } from './ThemeContext';
+import React, { useState, useEffect } from 'react';
+import { ThemeProvider, useTheme } from './ThemeContext';
 import OutlookLayout from './components/OutlookLayout';
 import WindowManager from './components/WindowManager';
+import OutlookOptions from './components/OutlookOptions';
+import SetupDialog from './components/SetupDialog';
 import './theme.css';
 import './App.css';
 
-function App() {
+function AppContent() {
   const [windows, setWindows] = useState([]);
   const [windowZIndex, setWindowZIndex] = useState(1000);
+  const [showOptions, setShowOptions] = useState(false);
+  const [showSetup, setShowSetup] = useState(false);
+  const { settings: appSettings, updateSettings: setAppSettings } = useTheme();
+
+  // Check if setup is needed on first load
+  useEffect(() => {
+    const hasSetup = sessionStorage.getItem('msoutlookit-setup-complete');
+    if (!hasSetup) {
+      setShowSetup(true);
+    }
+  }, []);
+
+  const handleSetupComplete = (userDetails) => {
+    if (userDetails) {
+      // Save to theme settings
+      setAppSettings({
+        ...appSettings,
+        email: userDetails.email,
+        fullName: userDetails.fullName,
+        initials: userDetails.initials,
+        domain: userDetails.domain
+      });
+    }
+    // Mark setup as complete for this session
+    sessionStorage.setItem('msoutlookit-setup-complete', 'true');
+    setShowSetup(false);
+  };
 
   const openWindow = (windowConfig) => {
     const newWindow = {
@@ -36,19 +65,42 @@ function App() {
     updateWindow(id, { zIndex: newZIndex });
   };
 
+  const handleOpenOptions = () => {
+    setShowOptions(true);
+  };
+
+  return (
+    <div className="app">
+      <OutlookLayout onOpenWindow={openWindow} />
+      <WindowManager
+        windows={windows}
+        onClose={closeWindow}
+        onUpdate={updateWindow}
+        onBringToFront={bringToFront}
+        onOpenOptions={handleOpenOptions}
+      />
+      {showOptions && (
+        <OutlookOptions
+          onClose={() => setShowOptions(false)}
+          settings={appSettings}
+          onSaveSettings={(newSettings) => setAppSettings(newSettings)}
+        />
+      )}
+      {showSetup && (
+        <SetupDialog onComplete={handleSetupComplete} />
+      )}
+    </div>
+  );
+}
+
+function App() {
   return (
     <ThemeProvider>
-      <div className="app">
-        <OutlookLayout onOpenWindow={openWindow} />
-        <WindowManager
-          windows={windows}
-          onClose={closeWindow}
-          onUpdate={updateWindow}
-          onBringToFront={bringToFront}
-        />
-      </div>
+      <AppContent />
     </ThemeProvider>
   );
 }
 
 export default App;
+
+

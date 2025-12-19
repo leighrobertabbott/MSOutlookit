@@ -7,11 +7,13 @@ import Toolbar from './Toolbar';
 import StatusBar from './StatusBar';
 import AddressBook from './AddressBook';
 import OutlookOptions from './OutlookOptions';
+import CalendarView from './CalendarView';
 import { useTheme } from '../ThemeContext';
 import { fetchSubreddit, fetchPostComments, formatPostAsEmail } from '../services/redditApi';
 import './OutlookLayout.css';
 
 function OutlookLayout({ onOpenWindow }) {
+  const [activeView, setActiveView] = useState('mail'); // 'mail' | 'calendar' | 'people' | 'tasks'
   const [currentSubreddit, setCurrentSubreddit] = useState('hot');
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -189,38 +191,57 @@ function OutlookLayout({ onOpenWindow }) {
         onOpenOptions={() => setShowOptions(true)}
       />
       <div className="outlook-content">
-        <NavRail activeView="mail" />
-        <div className="sidebar-container" style={{ width: sidebarWidth }}>
-          <Sidebar
-            folders={folders}
-            selectedFolder={currentSubreddit}
-            onFolderSelect={handleFolderSelect}
-            onNewSubreddit={handleNewSubreddit}
-          />
-          <div
-            className="resize-handle"
-            onMouseDown={(e) => handleMouseDown('sidebar', e)}
-          />
-        </div>
-        <div className="email-list-container" style={{ width: emailListWidth }}>
-          <EmailList
-            posts={posts}
-            selectedPost={selectedPost}
-            onPostSelect={handlePostSelect}
-            loading={loading}
-            onLoadMore={handleLoadMore}
-            hasMore={!!after}
-          />
-          <div
-            className="resize-handle"
-            onMouseDown={(e) => handleMouseDown('emailList', e)}
-          />
-        </div>
-        <ReadingPane
-          post={selectedPost}
-          comments={comments}
-          loading={loading}
-        />
+        <NavRail activeView={activeView} onViewChange={setActiveView} onOpenOptions={() => setShowOptions(true)} />
+        {activeView === 'mail' && (
+          <>
+            <div className="sidebar-container" style={{ width: sidebarWidth }}>
+              <Sidebar
+                folders={folders}
+                selectedFolder={currentSubreddit}
+                onFolderSelect={handleFolderSelect}
+                onNewSubreddit={handleNewSubreddit}
+              />
+              <div
+                className="resize-handle"
+                onMouseDown={(e) => handleMouseDown('sidebar', e)}
+              />
+            </div>
+            <div className="email-list-container" style={{ width: emailListWidth }}>
+              <EmailList
+                posts={posts}
+                selectedPost={selectedPost}
+                onPostSelect={handlePostSelect}
+                loading={loading}
+                onLoadMore={handleLoadMore}
+                hasMore={!!after}
+              />
+              <div
+                className="resize-handle"
+                onMouseDown={(e) => handleMouseDown('emailList', e)}
+              />
+            </div>
+            <ReadingPane
+              post={selectedPost}
+              comments={comments}
+              loading={loading}
+            />
+          </>
+        )}
+        {activeView === 'calendar' && (
+          <CalendarView posts={posts} />
+        )}
+        {activeView === 'people' && (
+          <div className="view-placeholder">
+            <div className="placeholder-icon">👥</div>
+            <div className="placeholder-text">People view coming soon</div>
+          </div>
+        )}
+        {activeView === 'tasks' && (
+          <div className="view-placeholder">
+            <div className="placeholder-icon">✓</div>
+            <div className="placeholder-text">Tasks view coming soon</div>
+          </div>
+        )}
       </div>
       <StatusBar postCount={posts.length} />
       {showAddressBook && <AddressBook onClose={() => setShowAddressBook(false)} />}

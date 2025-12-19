@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import AccountInfoWindow from './AccountInfoWindow';
+import ComposeWindow from './ComposeWindow';
 import './OutlookWindow.css';
 
-function OutlookWindow({ window, onClose, onUpdate, onBringToFront }) {
+function OutlookWindow({ window, onClose, onUpdate, onBringToFront, onOpenOptions }) {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [isResizing, setIsResizing] = useState(false);
@@ -134,9 +135,9 @@ function OutlookWindow({ window, onClose, onUpdate, onBringToFront }) {
       </div>
       <div className="window-content">
         {window.component === 'ComposeWindow' ? (
-          <ComposeWindowContent />
+          <ComposeWindow onClose={onClose} />
         ) : window.component === 'AccountInfo' ? (
-          <AccountInfoWindowContent />
+          <AccountInfoWindow onClose={onClose} onOpenOptions={onOpenOptions} />
         ) : (
           <div className="window-body">{window.content || 'Window content'}</div>
         )}
@@ -151,32 +152,8 @@ function OutlookWindow({ window, onClose, onUpdate, onBringToFront }) {
   );
 }
 
-function AccountInfoWindowContent() {
-  return <AccountInfoWindow />;
-}
-
 function ComposeWindowContent() {
-  return (
-    <div className="compose-window">
-      <div className="compose-header">
-        <div className="compose-field">
-          <label>To:</label>
-          <input type="text" placeholder="Enter recipient name or email address" />
-        </div>
-        <div className="compose-field">
-          <label>Subject:</label>
-          <input type="text" />
-        </div>
-      </div>
-      <div className="compose-body">
-        <textarea placeholder="Type your message here..."></textarea>
-      </div>
-      <div className="compose-footer">
-        <button className="compose-send">Send</button>
-        <button className="compose-cancel">Discard</button>
-      </div>
-    </div>
-  );
+  return <ComposeWindow />;
 }
 
 export default OutlookWindow;

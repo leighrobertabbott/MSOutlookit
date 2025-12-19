@@ -1,0 +1,495 @@
+.reddit-settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.reddit-settings-window {
+    position: fixed;
+    width: 750px;
+    max-height: 85vh;
+    background: #2b2b2b;
+    border: 1px solid #4a4a4a;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+[data-theme="light"] .reddit-settings-window {
+    background: #f3f3f3;
+    border-color: #d1d1d1;
+}
+
+.reddit-settings-titlebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #1f1f1f;
+    border-bottom: 1px solid #4a4a4a;
+    cursor: move;
+}
+
+[data-theme="light"] .reddit-settings-titlebar {
+    background: #f3f3f3;
+    border-bottom-color: #d1d1d1;
+}
+
+.reddit-settings-titlebar .titlebar-text {
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+[data-theme="light"] .reddit-settings-titlebar .titlebar-text {
+    color: #1a1a1a;
+}
+
+.reddit-settings-titlebar .titlebar-close {
+    background: transparent;
+    border: none;
+    color: #a0a0a0;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.reddit-settings-titlebar .titlebar-close:hover {
+    background: #e81123;
+    color: white;
+}
+
+.reddit-settings-header {
+    padding: 20px 24px 12px;
+}
+
+.settings-main-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 8px 0;
+}
+
+[data-theme="light"] .settings-main-title {
+    color: #1a1a1a;
+}
+
+.settings-description {
+    font-size: 12px;
+    color: #a0a0a0;
+    margin: 0;
+}
+
+[data-theme="light"] .settings-description {
+    color: #666666;
+}
+
+.reddit-settings-tabs {
+    display: flex;
+    padding: 0 24px;
+    border-bottom: 1px solid #4a4a4a;
+    gap: 0;
+    overflow-x: auto;
+}
+
+[data-theme="light"] .reddit-settings-tabs {
+    border-bottom-color: #d1d1d1;
+}
+
+.settings-tab {
+    padding: 8px 16px;
+    background: transparent;
+    border: none;
+    color: #a0a0a0;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+
+.settings-tab:hover {
+    color: #ffffff;
+}
+
+[data-theme="light"] .settings-tab:hover {
+    color: #1a1a1a;
+}
+
+.settings-tab.active {
+    color: #ffffff;
+    border-bottom-color: #0078d4;
+}
+
+[data-theme="light"] .settings-tab.active {
+    color: #1a1a1a;
+}
+
+.reddit-settings-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 8px 24px;
+    gap: 4px;
+    border-bottom: 1px solid #4a4a4a;
+}
+
+[data-theme="light"] .reddit-settings-toolbar {
+    border-bottom-color: #d1d1d1;
+}
+
+.toolbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #cccccc;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.toolbar-btn:hover {
+    background: #3e3e42;
+    border-color: #5a5a5a;
+}
+
+[data-theme="light"] .toolbar-btn {
+    color: #333333;
+}
+
+[data-theme="light"] .toolbar-btn:hover {
+    background: #e5e5e5;
+    border-color: #c1c1c1;
+}
+
+.toolbar-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.toolbar-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.reddit-settings-content {
+    flex: 1;
+    padding: 0 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-list-header {
+    display: flex;
+    padding: 8px 0;
+    border-bottom: 1px solid #4a4a4a;
+    font-size: 12px;
+    color: #a0a0a0;
+}
+
+[data-theme="light"] .account-list-header {
+    border-bottom-color: #d1d1d1;
+    color: #666666;
+}
+
+.col-name {
+    flex: 1;
+    padding-left: 28px;
+}
+
+.col-type {
+    width: 280px;
+}
+
+.account-list {
+    flex: 1;
+    overflow-y: auto;
+    background: #1f1f1f;
+    border: 1px solid #4a4a4a;
+    border-top: none;
+    max-height: 200px;
+}
+
+[data-theme="light"] .account-list {
+    background: #ffffff;
+    border-color: #d1d1d1;
+}
+
+.account-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #3e3e42;
+}
+
+[data-theme="light"] .account-item {
+    border-bottom-color: #e5e5e5;
+}
+
+.account-item:hover {
+    background: #2a2d2e;
+}
+
+[data-theme="light"] .account-item:hover {
+    background: #f0f0f0;
+}
+
+.account-item.selected {
+    background: #094771;
+}
+
+[data-theme="light"] .account-item.selected {
+    background: #cce8ff;
+}
+
+.account-indicator {
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-name {
+    flex: 1;
+    font-size: 12px;
+    color: #ffffff;
+    padding-left: 8px;
+}
+
+[data-theme="light"] .account-name {
+    color: #1a1a1a;
+}
+
+.account-type {
+    width: 280px;
+    font-size: 12px;
+    color: #a0a0a0;
+}
+
+[data-theme="light"] .account-type {
+    color: #666666;
+}
+
+.account-status {
+    padding: 16px 0;
+}
+
+.status-label {
+    font-size: 12px;
+    color: #ff6b6b;
+    margin: 0 0 8px 0;
+}
+
+[data-theme="light"] .status-label {
+    color: #d32f2f;
+}
+
+.status-location {
+    font-size: 12px;
+    color: #ffffff;
+    margin: 0 0 4px 24px;
+}
+
+[data-theme="light"] .status-location {
+    color: #1a1a1a;
+}
+
+.status-path {
+    font-size: 11px;
+    color: #a0a0a0;
+    margin: 0 0 0 24px;
+}
+
+[data-theme="light"] .status-path {
+    color: #666666;
+}
+
+.reddit-settings-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 24px;
+    border-top: 1px solid #4a4a4a;
+    gap: 8px;
+}
+
+[data-theme="light"] .reddit-settings-footer {
+    border-top-color: #d1d1d1;
+}
+
+.settings-btn {
+    padding: 6px 24px;
+    font-size: 12px;
+    border: 1px solid #5a5a5a;
+    border-radius: 2px;
+    cursor: pointer;
+    background: #3a3a3a;
+    color: #ffffff;
+}
+
+[data-theme="light"] .settings-btn {
+    background: #ffffff;
+    border-color: #8a8a8a;
+    color: #1a1a1a;
+}
+
+.settings-btn:hover {
+    background: #4a4a4a;
+}
+
+[data-theme="light"] .settings-btn:hover {
+    background: #e5e5e5;
+}
+
+.settings-btn.primary {
+    background: #0078d4;
+    border-color: #0078d4;
+    color: #ffffff;
+}
+
+.settings-btn.primary:hover {
+    background: #106ebe;
+}
+
+/* New Account Dialog */
+.new-account-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+}
+
+.new-account-dialog {
+    width: 450px;
+    background: #2b2b2b;
+    border: 1px solid #4a4a4a;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .new-account-dialog {
+    background: #f3f3f3;
+    border-color: #d1d1d1;
+}
+
+.new-account-titlebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #1f1f1f;
+    border-bottom: 1px solid #4a4a4a;
+    font-size: 13px;
+    color: #ffffff;
+}
+
+[data-theme="light"] .new-account-titlebar {
+    background: #f3f3f3;
+    border-bottom-color: #d1d1d1;
+    color: #1a1a1a;
+}
+
+.new-account-content {
+    padding: 20px;
+}
+
+.account-type-section,
+.account-login-section {
+    margin-bottom: 20px;
+}
+
+.account-type-section h3,
+.account-login-section h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+}
+
+[data-theme="light"] .account-type-section h3,
+[data-theme="light"] .account-login-section h3 {
+    color: #1a1a1a;
+}
+
+.account-type-select {
+    width: 100%;
+    padding: 8px;
+    background: #3a3a3a;
+    border: 1px solid #5a5a5a;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+[data-theme="light"] .account-type-select {
+    background: #ffffff;
+    border-color: #8a8a8a;
+    color: #1a1a1a;
+}
+
+.login-description {
+    font-size: 12px;
+    color: #a0a0a0;
+    line-height: 1.5;
+    margin: 0 0 16px 0;
+}
+
+[data-theme="light"] .login-description {
+    color: #666666;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.login-form label {
+    font-size: 12px;
+    color: #cccccc;
+}
+
+[data-theme="light"] .login-form label {
+    color: #333333;
+}
+
+.login-form input {
+    padding: 8px;
+    background: #3a3a3a;
+    border: 1px solid #5a5a5a;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+[data-theme="light"] .login-form input {
+    background: #ffffff;
+    border-color: #8a8a8a;
+    color: #1a1a1a;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #0078d4;
+}
+
+.login-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}

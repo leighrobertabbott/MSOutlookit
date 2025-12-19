@@ -102,9 +102,6 @@ function EmailList({ posts, selectedPost, onPostSelect, loading, onLoadMore, has
                         onPostSelect(post);
                       }}
                     >
-                      <div className="email-item-avatar">
-                        {post.from.charAt(0).toUpperCase()}
-                      </div>
                       <div className="email-item-content">
                         <div className="email-item-header">
                           <span className="email-item-from">{post.from}</span>
@@ -112,7 +109,7 @@ function EmailList({ posts, selectedPost, onPostSelect, loading, onLoadMore, has
                         </div>
                         <div className="email-item-subject">{post.subject}</div>
                         <div className="email-item-preview">
-                          {post.selftext ? post.selftext.substring(0, 100) + '...' : post.url}
+                          {post.plainTextPreview ? post.plainTextPreview.substring(0, 150) : post.url}
                         </div>
                       </div>
                       <div className="email-item-icons">

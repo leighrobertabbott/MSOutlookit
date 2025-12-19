@@ -2,7 +2,7 @@ import React from 'react';
 import OutlookWindow from './OutlookWindow';
 import './WindowManager.css';
 
-function WindowManager({ windows, onClose, onUpdate, onBringToFront }) {
+function WindowManager({ windows, onClose, onUpdate, onBringToFront, onOpenOptions }) {
   return (
     <div className="window-manager">
       {windows.map((window) => (
@@ -12,6 +12,7 @@ function WindowManager({ windows, onClose, onUpdate, onBringToFront }) {
           onClose={() => onClose(window.id)}
           onUpdate={(updates) => onUpdate(window.id, updates)}
           onBringToFront={() => onBringToFront(window.id)}
+          onOpenOptions={onOpenOptions}
         />
       ))}
     </div>
@@ -19,4 +20,5 @@ function WindowManager({ windows, onClose, onUpdate, onBringToFront }) {
 }
 
 export default WindowManager;
+
 

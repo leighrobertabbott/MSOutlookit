@@ -1,0 +1,187 @@
+.setup-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.setup-dialog {
+    width: 460px;
+    background: #2d2d2d;
+    border: 1px solid #404040;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    position: relative;
+    padding: 48px 40px 32px;
+}
+
+.setup-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    color: #999999;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.setup-close-btn:hover {
+    background: #404040;
+    color: #ffffff;
+}
+
+.setup-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 48px;
+}
+
+.setup-logo svg {
+    flex-shrink: 0;
+}
+
+.setup-logo-text {
+    font-size: 32px;
+    font-weight: 300;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.setup-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.setup-label {
+    font-size: 13px;
+    color: #cccccc;
+    margin-bottom: 8px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.setup-input {
+    width: 100%;
+    padding: 10px 12px;
+    background: #3d3d3d;
+    border: none;
+    border-bottom: 2px solid #0078d4;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: 16px;
+    outline: none;
+}
+
+.setup-input::placeholder {
+    color: #888888;
+}
+
+.setup-input:focus {
+    background: #454545;
+}
+
+.setup-advanced-btn {
+    align-self: center;
+    padding: 6px 16px;
+    background: transparent;
+    border: 1px solid #666666;
+    color: #ffffff;
+    font-size: 13px;
+    font-family: 'Segoe UI', sans-serif;
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+
+.setup-advanced-btn:hover {
+    background: #404040;
+}
+
+.setup-advanced-fields {
+    margin-bottom: 16px;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.setup-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: #cccccc;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.setup-checkbox {
+    width: 16px;
+    height: 16px;
+    accent-color: #0078d4;
+}
+
+.setup-connect-btn {
+    width: 100%;
+    padding: 12px;
+    background: #0078d4;
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Segoe UI', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.setup-connect-btn:hover:not(:disabled) {
+    background: #106ebe;
+}
+
+.setup-connect-btn:disabled {
+    background: #555555;
+    color: #888888;
+    cursor: not-allowed;
+}
+
+.setup-footer {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 13px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.setup-footer span {
+    color: #888888;
+    margin-right: 8px;
+}
+
+.setup-footer a {
+    color: #0078d4;
+    text-decoration: none;
+}
+
+.setup-footer a:hover {
+    text-decoration: underline;
+}

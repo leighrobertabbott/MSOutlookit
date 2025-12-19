@@ -110,9 +110,25 @@ function Toolbar({ onNewMessage, onOpenAccountInfo, onSearch, onOpenAddressBook,
       <div className="quick-access-toolbar">
         <div className="qat-left">
           <div className="outlook-icon">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <rect width="16" height="16" fill="#0078D4" />
-              <path d="M8 3L12 7H9V13H7V7H4L8 3Z" fill="white" />
+            <svg width="16" height="16" viewBox="0 0 256 256" fill="none">
+              <defs>
+                <linearGradient id="envelopeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#28A8EA" />
+                  <stop offset="100%" stopColor="#0078D4" />
+                </linearGradient>
+              </defs>
+              <rect x="75" y="20" width="150" height="200" rx="6" fill="#FFFFFF" />
+              <path d="M75 28 Q75 20 83 20 H217 Q225 20 225 28 V56 H75 Z" fill="#106EBE" />
+              <rect x="75" y="56" width="102" height="130" fill="#2B88D8" />
+              <rect x="177" y="56" width="48" height="56" fill="#4CD6F7" />
+              <rect x="177" y="112" width="48" height="74" fill="#005A9E" />
+              <rect x="75" y="112" width="150" height="4" fill="#FFFFFF" />
+              <rect x="173" y="56" width="4" height="130" fill="#FFFFFF" />
+              <path d="M75 160 L150 195 L225 155 V225 Q225 236 215 236 H85 Q75 236 75 225 Z" fill="url(#envelopeGrad)" />
+              <path d="M225 155 L225 236 L150 195 Z" fill="#004C87" opacity="0.4" />
+              <path d="M75 160 L225 155 L225 158 L75 170 Z" fill="#000000" opacity="0.15" />
+              <rect x="25" y="85" width="140" height="140" rx="10" fill="#0F6CBD" />
+              <path d="M 95, 120 A 35,35 0 1,1 95, 190 A 35,35 0 1,1 95, 120 Z M 95, 143 A 12,12 0 1,0 95, 167 A 12,12 0 1,0 95, 143 Z" fill="#FFFFFF" />
             </svg>
           </div>
           <button className="qat-button" title="Refresh">
@@ -133,7 +149,7 @@ function Toolbar({ onNewMessage, onOpenAccountInfo, onSearch, onOpenAddressBook,
               <path d="M14 7H6C4.34315 7 3 8.34315 3 10V11" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
             </svg>
           </button>
-          <div className="qat-dropdown" onClick={onOpenOptions} title="Customize Quick Access Toolbar">
+          <div className="qat-dropdown" title="Customize Quick Access Toolbar">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
               <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

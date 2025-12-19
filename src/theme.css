@@ -131,10 +131,39 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb);
+    border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--border-secondary);
+}
+
+/* Light theme scrollbar - explicit colors to override any black scrollbars */
+[data-theme="light"] ::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border: 2px solid #f0f0f0;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-corner {
+    background: #f0f0f0;
+}
+
+/* Firefox scrollbar support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+}
+
+[data-theme="light"] * {
+    scrollbar-color: #c1c1c1 #f0f0f0;
 }
 
 /* SVG icon color inheritance for light theme */
