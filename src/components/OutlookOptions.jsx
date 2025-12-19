@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './OutlookOptions.css';
 
+import { AuthService } from '../services/redditAuth';
+
 function OutlookOptions({ onClose, settings, onSaveSettings }) {
     const [activeCategory, setActiveCategory] = useState('General');
+    const [authStatus, setAuthStatus] = useState(AuthService.isLoggedIn());
     const [localSettings, setLocalSettings] = useState(settings || {
         userName: 'Alex Johnson',
         initials: 'AJ',
@@ -19,6 +22,8 @@ function OutlookOptions({ onClose, settings, onSaveSettings }) {
         attachmentOption: 'ask',
         neverChangeBackground: false,
         alwaysUseValues: false,
+        // Reddit Auth
+        redditClientId: localStorage.getItem('reddit_client_id') || '',
         // Mail settings
         composeFormat: 'HTML',
         showTextPredictions: true,
@@ -117,6 +122,11 @@ function OutlookOptions({ onClose, settings, onSaveSettings }) {
     };
 
     const handleSave = () => {
+        // Save Client ID to local storage persistantly
+        if (localSettings.redditClientId) {
+            localStorage.setItem('reddit_client_id', localSettings.redditClientId);
+        }
+
         if (onSaveSettings) {
             onSaveSettings(localSettings);
         }
@@ -125,6 +135,21 @@ function OutlookOptions({ onClose, settings, onSaveSettings }) {
 
     const updateSetting = (key, value) => {
         setLocalSettings({ ...localSettings, [key]: value });
+    };
+
+    const handleLogin = () => {
+        if (localSettings.redditClientId) {
+            // Save settings first
+            localStorage.setItem('reddit_client_id', localSettings.redditClientId);
+            AuthService.login(localSettings.redditClientId);
+        } else {
+            alert('Please enter a Client ID first');
+        }
+    };
+
+    const handleLogout = () => {
+        AuthService.logout();
+        setAuthStatus(false);
     };
 
     const categories = [
@@ -174,7 +199,13 @@ function OutlookOptions({ onClose, settings, onSaveSettings }) {
                             <GeneralOptions settings={localSettings} updateSetting={updateSetting} />
                         )}
                         {activeCategory === 'Mail' && (
-                            <MailOptions settings={localSettings} updateSetting={updateSetting} />
+                            <MailOptions
+                                settings={localSettings}
+                                updateSetting={updateSetting}
+                                authStatus={authStatus}
+                                onLogin={handleLogin}
+                                onLogout={handleLogout}
+                            />
                         )}
                         {activeCategory === 'Calendar' && <PlaceholderOptions title="Calendar" />}
                         {activeCategory === 'Groups' && <PlaceholderOptions title="Groups" />}
@@ -195,6 +226,54 @@ function OutlookOptions({ onClose, settings, onSaveSettings }) {
                 <div className="options-footer">
                     <button className="options-btn primary" onClick={handleSave}>OK</button>
                     <button className="options-btn" onClick={onClose}>Cancel</button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function RedditAuthOptions({ settings, updateSetting, authStatus, onLogin, onLogout }) {
+    return (
+        <div className="options-section">
+            <h3>Reddit Account Configuration</h3>
+            <div className="section-row with-icon">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="14" fill="#FF4500" />
+                    <path d="M22.5 13.5C22.5 12.67 21.83 12 21 12C20.61 12 20.25 12.15 19.98 12.39C19.06 11.73 17.83 11.28 16.48 11.23L17.16 8.03L19.5 8.53C19.58 9.07 20.04 9.5 20.62 9.5C21.24 9.5 21.75 8.99 21.75 8.37C21.75 7.75 21.24 7.25 20.62 7.25C20.17 7.25 19.79 7.51 19.61 7.89L16.97 7.33C16.89 7.31 16.81 7.35 16.76 7.42C16.71 7.49 16.7 7.58 16.73 7.66L17.48 11.22C16.12 11.27 14.89 11.73 13.97 12.39C13.7 12.15 13.34 12 12.96 12C12.13 12 11.46 12.67 11.46 13.5C11.46 13.9 11.62 14.26 11.88 14.53C11.84 14.71 11.82 14.9 11.82 15.09C11.82 17.78 14.96 19.96 18.84 19.96C22.72 19.96 25.86 17.78 25.86 15.09C25.86 14.9 25.84 14.71 25.8 14.53C26.06 14.26 26.22 13.9 26.22 13.5ZM14.07 15.82C14.07 15.34 14.46 14.95 14.94 14.95C15.42 14.95 15.81 15.34 15.81 15.82C15.81 16.3 15.42 16.69 14.94 16.69C14.46 16.69 14.07 16.3 14.07 15.82ZM19.88 18.15C19.29 18.73 18.23 19.06 17 19.06C15.77 19.06 14.71 18.73 14.12 18.15C13.99 18.02 13.99 17.81 14.12 17.68C14.24 17.55 14.45 17.55 14.58 17.68C15.04 18.14 15.91 18.4 17 18.4C18.09 18.4 18.96 18.14 19.42 17.68C19.55 17.55 19.76 17.55 19.89 17.68C20.01 17.81 20.01 18.02 19.88 18.15ZM19.01 16.69C18.53 16.69 18.14 16.3 18.14 15.82C18.14 15.34 18.53 14.95 19.01 14.95C19.49 14.95 19.88 15.34 19.88 15.82C19.88 16.3 19.49 16.69 19.01 16.69Z" fill="white" />
+                </svg>
+                <div className="section-content">
+                    <p className="option-description">
+                        To enable voting, commenting, and personalized feeds, you must register a "web app" on Reddit and paste the Client ID below.
+                        <br />
+                        <a href="https://www.reddit.com/prefs/apps" target="_blank" rel="noreferrer" style={{ color: '#0078d4' }}>Register a new app here</a> (Set Redirect URI to: <code>{window.location.href.split('#')[0]}</code>)
+                    </p>
+                    <div className="form-row">
+                        <label>Client ID:</label>
+                        <input
+                            type="text"
+                            value={settings.redditClientId}
+                            onChange={(e) => updateSetting('redditClientId', e.target.value)}
+                            placeholder="e.g. 8k3j29d8k29d"
+                            className="medium"
+                        />
+                    </div>
+
+                    <div className="form-row">
+                        {authStatus ? (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <span style={{ color: 'green', fontWeight: 'bold' }}>✓ Logged In</span>
+                                <button className="options-btn" onClick={onLogout}>Sign Out</button>
+                            </div>
+                        ) : (
+                            <button
+                                className="options-btn primary"
+                                onClick={onLogin}
+                                disabled={!settings.redditClientId}
+                            >
+                                Login with Reddit
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
@@ -429,7 +508,7 @@ function GeneralOptions({ settings, updateSetting }) {
     );
 }
 
-function MailOptions({ settings, updateSetting }) {
+function MailOptions({ settings, updateSetting, authStatus, onLogin, onLogout }) {
     return (
         <div className="options-panel mail-options">
             {/* Header */}
@@ -440,6 +519,15 @@ function MailOptions({ settings, updateSetting }) {
                 </svg>
                 <span>Change the settings for messages you create and receive.</span>
             </div>
+
+            {/* Reddit Auth Section */}
+            <RedditAuthOptions
+                settings={settings}
+                updateSetting={updateSetting}
+                authStatus={authStatus}
+                onLogin={onLogin}
+                onLogout={onLogout}
+            />
 
             {/* Compose messages */}
             <div className="options-section">

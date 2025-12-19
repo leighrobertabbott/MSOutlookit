@@ -5,6 +5,7 @@ import WindowManager from './components/WindowManager';
 import OutlookOptions from './components/OutlookOptions';
 import SetupDialog from './components/SetupDialog';
 import { useNotifications, NotificationContainer } from './components/ToastNotification';
+import { AuthService } from './services/redditAuth';
 import './theme.css';
 import './App.css';
 
@@ -17,6 +18,19 @@ function AppContent() {
 
   // Toast notifications - every 2 minutes
   const { notifications, dismissNotification, deleteNotification, flagNotification } = useNotifications(true, 120000);
+
+  // Check for Reddit auth callback
+  useEffect(() => {
+    // If URL contains access_token, handle the callback
+    if (window.location.hash.includes('access_token')) {
+      const tokenData = AuthService.handleCallback();
+      if (tokenData) {
+        // Optional: Show success notification or just clean URL (already done in handleCallback)
+        console.log('Reddit login successful');
+        setShowOptions(true); // Re-open options to show "Logged In" state
+      }
+    }
+  }, []);
 
   // Check if setup is needed on first load
   useEffect(() => {

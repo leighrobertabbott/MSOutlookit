@@ -4,8 +4,29 @@
  */
 
 import { fakeContacts } from '../data/fakeContacts';
+import { AuthService } from './redditAuth';
 
 const REDDIT_BASE_URL = 'https://www.reddit.com';
+const OAUTH_BASE_URL = 'https://oauth.reddit.com';
+
+/**
+ * Get the appropriate base URL and headers
+ */
+function getApiConfig() {
+  const token = AuthService.getToken();
+  if (token) {
+    return {
+      baseUrl: OAUTH_BASE_URL,
+      headers: {
+        'Authorization': `bearer ${token}`
+      }
+    };
+  }
+  return {
+    baseUrl: REDDIT_BASE_URL,
+    headers: {}
+  };
+}
 
 /**
  * Fetch Reddit posts from a subreddit
@@ -17,68 +38,46 @@ const REDDIT_BASE_URL = 'https://www.reddit.com';
  */
 export async function fetchSubreddit(subreddit = 'hot', sort = 'hot', after = null, limit = 25) {
   try {
+    const { baseUrl, headers } = getApiConfig();
     let url;
 
     // Fix URL construction to avoid double slashes
     if (!subreddit || subreddit === 'hot' || subreddit === 'front') {
-      url = `${REDDIT_BASE_URL}/hot.json?limit=${limit}`;
+      url = `${baseUrl}/hot.json?limit=${limit}`;
     } else {
-      url = `${REDDIT_BASE_URL}/r/${subreddit}/${sort}.json?limit=${limit}`;
+      url = `${baseUrl}/r/${subreddit}/${sort}.json?limit=${limit}`;
     }
 
     if (after) {
       url += `&after=${after}`;
     }
 
-    // Reddit JSON endpoints support CORS, try direct access first
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'omit'
-      });
+    // CORS Proxy for unauthenticated production requests
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const isAuth = !!headers.Authorization;
 
-      if (!response.ok) {
-        throw new Error(`Reddit API error: ${response.status} ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (corsError) {
-      // If CORS fails, fall back to JSONP (old method)
-      return new Promise((resolve, reject) => {
-        const callbackName = `redditCallback_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
-        window[callbackName] = (data) => {
-          delete window[callbackName];
-          document.body.removeChild(script);
-          resolve(data);
-        };
-
-        const script = document.createElement('script');
-        const jsonpUrl = url + (url.includes('?') ? '&' : '?') + `jsonp=${callbackName}`;
-        script.src = jsonpUrl;
-        script.onerror = () => {
-          delete window[callbackName];
-          if (script.parentNode) {
-            document.body.removeChild(script);
-          }
-          reject(new Error('Failed to fetch Reddit data'));
-        };
-
-        setTimeout(() => {
-          if (window[callbackName]) {
-            delete window[callbackName];
-            if (script.parentNode) {
-              document.body.removeChild(script);
-            }
-            reject(new Error('JSONP request timeout'));
-          }
-        }, 10000);
-
-        document.body.appendChild(script);
-      });
+    if (!isLocalhost && !isAuth) {
+      url = `https://corsproxy.io/?${encodeURIComponent(url)}`;
     }
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: headers,
+      // mode: 'cors', // Default is cors, removing explicit set to be safe with proxy
+      credentials: 'omit'
+    });
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        // Token expired/invalid
+        AuthService.logout();
+        throw new Error('Session expired');
+      }
+      throw new Error(`Reddit API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error('Error fetching subreddit:', error);
     throw error;
@@ -93,58 +92,37 @@ export async function fetchSubreddit(subreddit = 'hot', sort = 'hot', after = nu
  */
 export async function fetchPostComments(postId, subreddit) {
   try {
+    const { baseUrl, headers } = getApiConfig();
     // Remove 't3_' prefix if present
     const cleanId = postId.replace('t3_', '');
-    const url = `${REDDIT_BASE_URL}/r/${subreddit}/comments/${cleanId}.json`;
+    const urlInitial = `${baseUrl}/r/${subreddit}/comments/${cleanId}.json`;
+    let url = urlInitial;
 
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'omit'
-      });
+    // CORS Proxy for unauthenticated production requests
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const isAuth = !!headers.Authorization;
 
-      if (!response.ok) {
-        throw new Error(`Reddit API error: ${response.status} ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (corsError) {
-      // Fall back to JSONP
-      return new Promise((resolve, reject) => {
-        const callbackName = `redditCallback_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
-        window[callbackName] = (data) => {
-          delete window[callbackName];
-          document.body.removeChild(script);
-          resolve(data);
-        };
-
-        const script = document.createElement('script');
-        const jsonpUrl = url + '?jsonp=' + callbackName;
-        script.src = jsonpUrl;
-        script.onerror = () => {
-          delete window[callbackName];
-          if (script.parentNode) {
-            document.body.removeChild(script);
-          }
-          reject(new Error('Failed to fetch Reddit data'));
-        };
-
-        setTimeout(() => {
-          if (window[callbackName]) {
-            delete window[callbackName];
-            if (script.parentNode) {
-              document.body.removeChild(script);
-            }
-            reject(new Error('JSONP request timeout'));
-          }
-        }, 10000);
-
-        document.body.appendChild(script);
-      });
+    if (!isLocalhost && !isAuth) {
+      url = `https://corsproxy.io/?${encodeURIComponent(urlInitial)}`;
     }
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: headers,
+      // mode: 'cors',
+      credentials: 'omit'
+    });
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        AuthService.logout();
+        throw new Error('Session expired');
+      }
+      throw new Error(`Reddit API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error('Error fetching post comments:', error);
     throw error;
@@ -158,56 +136,31 @@ export async function fetchPostComments(postId, subreddit) {
  */
 export async function searchSubreddits(query) {
   try {
-    const url = `${REDDIT_BASE_URL}/subreddits/search.json?q=${encodeURIComponent(query)}&limit=25`;
+    const { baseUrl, headers } = getApiConfig();
+    const urlInitial = `${baseUrl}/subreddits/search.json?q=${encodeURIComponent(query)}&limit=25`;
+    let url = urlInitial;
 
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'omit'
-      });
+    // CORS Proxy for unauthenticated production requests
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const isAuth = !!headers.Authorization;
 
-      if (!response.ok) {
-        throw new Error(`Reddit API error: ${response.status} ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (corsError) {
-      // Fall back to JSONP
-      return new Promise((resolve, reject) => {
-        const callbackName = `redditCallback_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
-        window[callbackName] = (data) => {
-          delete window[callbackName];
-          document.body.removeChild(script);
-          resolve(data);
-        };
-
-        const script = document.createElement('script');
-        const jsonpUrl = url + '&jsonp=' + callbackName;
-        script.src = jsonpUrl;
-        script.onerror = () => {
-          delete window[callbackName];
-          if (script.parentNode) {
-            document.body.removeChild(script);
-          }
-          reject(new Error('Failed to fetch Reddit data'));
-        };
-
-        setTimeout(() => {
-          if (window[callbackName]) {
-            delete window[callbackName];
-            if (script.parentNode) {
-              document.body.removeChild(script);
-            }
-            reject(new Error('JSONP request timeout'));
-          }
-        }, 10000);
-
-        document.body.appendChild(script);
-      });
+    if (!isLocalhost && !isAuth) {
+      url = `https://corsproxy.io/?${encodeURIComponent(urlInitial)}`;
     }
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: headers,
+      // mode: 'cors',
+      credentials: 'omit'
+    });
+
+    if (!response.ok) {
+      throw new Error(`Reddit API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error('Error searching subreddits:', error);
     throw error;

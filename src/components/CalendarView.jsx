@@ -113,9 +113,144 @@ function CalendarView({ onClose, posts = [] }) {
     const dayNames = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
     const fullDayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
+    // --- Schedule View Logic ---
+    const scheduleResources = [
+        { id: 'leigh', name: `Calendar - ${settings?.email ? settings.email.split('@')[0] : 'Alex.Johnson'}`, color: '#0078d4' },
+        { id: 'nicholas', name: 'James Wilson', color: '#ea9999' }, // Pink
+        { id: 'aj', name: 'Maria Garcia', color: '#f6b26b' }, // Orange
+        { id: 'alison', name: 'Robert Chen', color: '#6d9eeb' }, // Blue
+        { id: 'andrewp', name: 'Emily Davis', color: '#e06666' }, // Red
+        { id: 'andrewt', name: 'Michael Brown', color: '#76a5af' }, // Cyan
+        { id: 'cynthia', name: 'Sarah Miller', color: '#d5a6bd' }, // Muted pink
+        { id: 'debbie', name: 'David Taylor', color: '#b6d7a8' }, // Greenish
+        { id: 'elaine', name: 'Jennifer White', color: '#e69138' }, // Darker orange
+        { id: 'ethan', name: 'Thomas Anderson', color: '#9fc5e8' }, // Light blue
+    ];
+
+    const scheduleEvents = [
+        { resourceId: 'leigh', title: 'Reception IT', start: '12:30', end: '13:30', color: '#0078d4', hash: false },
+        { resourceId: 'leigh', title: 'Reception IT', start: '12:30', end: '13:30', color: '#0078d4', hash: false, dayOffset: 1 }, // Next day
+        { resourceId: 'nicholas', title: 'Annual Leave', start: '11:00', end: '17:00', color: '#e91e63', hash: false }, // Pink
+        { resourceId: 'nicholas', title: 'End of Life Steering Group; Microsoft Teams', start: '14:00', end: '15:30', color: '#b6d7a8', hash: true, hatchColor: '#000' },
+        { resourceId: 'nicholas', title: '10 point plan group', start: '15:00', end: '16:00', color: '#b6d7a8', hash: true },
+        { resourceId: 'aj', title: 'NAMDET North-West', start: '11:00', end: '12:30', color: '#e69138', hash: false },
+        { resourceId: 'aj', title: 'Close Down 2025 Service', start: '12:30', end: '15:30', color: '#f6b26b', hash: false },
+        { resourceId: 'aj', title: 'Lunch', start: '11:00', end: '12:00', color: '#f6b26b', hash: true },
+        { resourceId: 'alison', title: '', start: '11:00', end: '12:00', color: '#3f51b5', hash: false },
+        { resourceId: 'andrewp', title: 'AL', start: '11:30', end: '17:00', color: '#e06666', hash: false },
+        { resourceId: 'andrewt', title: 'Liverpool University watching surgical sim pilot', start: '11:00', end: '15:00', color: '#00bcd4', hash: false },
+        { resourceId: 'andrewt', title: '5th yr surgical bedside teaching on ward', start: '14:00', end: '15:00', color: '#00bcd4', hash: false, isGap: true },
+        { resourceId: 'andrewt', title: '5th yr Surgical Bedside teaching with t', start: '14:00', end: '15:00', color: '#00bcd4', hash: false, isGap: true, gapOffset: 20 },
+    ];
+
+    // Helper to get pixel position for horizontal timeline
+    // 12:00 is starting point content-wise, but grid might start earlier
+    // Let's assume grid starts at 08:00
+    const getHorizontalPosition = (time) => {
+        const [hours, minutes] = time.split(':').map(Number);
+        // Base is 08:00
+        const totalMinutes = (hours - 8) * 60 + minutes;
+        // 1 hour = 200px (wider for schedule view)
+        return (totalMinutes / 60) * 200;
+    };
+
+    const getDurationWidth = (start, end) => {
+        const [h1, m1] = start.split(':').map(Number);
+        const [h2, m2] = end.split(':').map(Number);
+        const diffMinutes = ((h2 * 60) + m2) - ((h1 * 60) + m1);
+        return (diffMinutes / 60) * 200;
+    };
+
+    const renderScheduleView = () => (
+        <div className="schedule-view-container">
+            {/* Resources Sidebar */}
+            <div className="schedule-resources">
+                {/* Header Gutter */}
+                <div className="resource-header-gutter">
+                    <div className="date-header-row">
+                        <div className="date-cell">19 December 2025</div>
+                    </div>
+                </div>
+                {scheduleResources.map(res => (
+                    <div key={res.id} className="resource-row-header" style={{ borderLeftColor: res.color }}>
+                        <div className="resource-icon">
+                            {/* User/Group Icon */}
+                            <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 8a3 3 0 100-6 3 3 0 000 6zm2-3a2 2 0 11-4 0 2 2 0 014 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 1 4zm-1 0H3c.7-2.5 3.5-3 5-3 1.4 0 4.3.4 5 3z" />
+                            </svg>
+                        </div>
+                        <span className="resource-name">{res.name}</span>
+                    </div>
+                ))}
+            </div>
+
+            {/* Timeline Grid */}
+            <div className="schedule-grid-scroll">
+                {/* Time Header */}
+                <div className="schedule-time-header">
+                    {/* Day bands */}
+                    <div className="schedule-day-band">
+                        <div className="day-label" style={{ width: '2000px' }}>19 December 2025</div>
+                        <div className="day-label" style={{ width: '2000px', borderLeft: '1px solid #ccc' }}>20 December 2025</div>
+                    </div>
+                    {/* Hour bands */}
+                    <div className="schedule-hour-band">
+                        {Array.from({ length: 32 }, (_, i) => i + 8).map((h, i) => { // 2 days of hours
+                            const hour = h % 24;
+                            return (
+                                <div key={i} className="hour-label" style={{ left: i * 200 }}>
+                                    {hour.toString().padStart(2, '0')}:00
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* Grid Content */}
+                <div className="schedule-grid-content">
+                    {/* Vertical Time Marker (e.g. at 14:00) */}
+                    <div className="schedule-current-time" style={{ left: getHorizontalPosition('14:00') }}>
+                        <div className="time-dot-top"></div>
+                    </div>
+
+                    {scheduleResources.map((res, index) => (
+                        <div key={res.id} className="schedule-resource-lane">
+                            {/* Grid Lines */}
+                            {Array.from({ length: 32 }, (_, i) => (
+                                <div key={i} className="grid-cell" style={{ left: i * 200 }}></div>
+                            ))}
+
+                            {/* Events */}
+                            {scheduleEvents.filter(e => e.resourceId === res.id).map((evt, evtIdx) => {
+                                const left = getHorizontalPosition(evt.start) + (evt.dayOffset ? evt.dayOffset * 24 * 200 : 0); // hypothetical day offset logic
+                                return (
+                                    <div
+                                        key={evtIdx}
+                                        className={`schedule-event ${evt.hash ? 'hatched' : ''}`}
+                                        style={{
+                                            left: `${left}px`,
+                                            width: `${getDurationWidth(evt.start, evt.end)}px`,
+                                            backgroundColor: evt.color,
+                                            top: evt.isGap ? '20px' : '2px', // Stacking logic
+                                            height: evt.isGap ? '18px' : '28px',
+                                            marginLeft: evt.gapOffset ? `${evt.gapOffset}px` : '0'
+                                        }}
+                                        title={evt.title}
+                                    >
+                                        <span className="schedule-event-title">{evt.title}</span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+
     return (
         <div className="calendar-view">
-            {/* Left Mini Calendar */}
+            {/* Left Mini Calendar - Always visible */}
             <div className="calendar-sidebar">
                 {/* Mini calendar navigation */}
                 <div className="mini-calendar">
@@ -190,12 +325,6 @@ function CalendarView({ onClose, posts = [] }) {
                             </label>
                         </div>
                     </div>
-                    <div className="calendar-list-section">
-                        <div className="calendar-list-header">
-                            <span className="expand-icon">›</span>
-                            <span>Shared Calendars</span>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -219,78 +348,83 @@ function CalendarView({ onClose, posts = [] }) {
                             <option>Work Week</option>
                             <option>Week</option>
                             <option>Month</option>
+                            <option>Schedule View</option>
                         </select>
                     </div>
                 </div>
 
-                {/* Day Headers */}
-                <div className="calendar-day-headers">
-                    <div className="time-gutter-header"></div>
-                    {weekDates.map((date, i) => (
-                        <div
-                            key={i}
-                            className={`day-header ${isToday(date) ? 'today' : ''}`}
-                        >
-                            <div className="day-name">{fullDayNames[i] || date.toLocaleDateString('en-US', { weekday: 'long' })}</div>
-                            <div className="day-date-number">
-                                <span className={`date-badge ${isToday(date) ? 'today' : ''}`}>{date.getDate()}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Time Grid */}
-                <div className="calendar-grid-container">
-                    <div className="calendar-time-grid">
-                        {/* Time gutter */}
-                        <div className="time-gutter">
-                            {hours.map(hour => (
-                                <div key={hour} className="time-slot-label">
-                                    {hour.toString().padStart(2, '0')}:00
+                {viewMode === 'Schedule View' ? renderScheduleView() : (
+                    <>
+                        {/* Day Headers */}
+                        <div className="calendar-day-headers">
+                            <div className="time-gutter-header"></div>
+                            {weekDates.map((date, i) => (
+                                <div
+                                    key={i}
+                                    className={`day-header ${isToday(date) ? 'today' : ''}`}
+                                >
+                                    <div className="day-name">{fullDayNames[i] || date.toLocaleDateString('en-US', { weekday: 'long' })}</div>
+                                    <div className="day-date-number">
+                                        <span className={`date-badge ${isToday(date) ? 'today' : ''}`}>{date.getDate()}</span>
+                                    </div>
                                 </div>
                             ))}
                         </div>
 
-                        {/* Day columns */}
-                        {weekDates.map((date, dayIndex) => (
-                            <div key={dayIndex} className={`day-column ${isToday(date) ? 'today' : ''}`}>
-                                {hours.map(hour => (
-                                    <div key={hour} className="time-slot">
-                                        {/* Render events */}
+                        {/* Time Grid */}
+                        <div className="calendar-grid-container">
+                            <div className="calendar-time-grid">
+                                {/* Time gutter */}
+                                <div className="time-gutter">
+                                    {hours.map(hour => (
+                                        <div key={hour} className="time-slot-label">
+                                            {hour.toString().padStart(2, '0')}:00
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Day columns */}
+                                {weekDates.map((date, dayIndex) => (
+                                    <div key={dayIndex} className={`day-column ${isToday(date) ? 'today' : ''}`}>
+                                        {hours.map(hour => (
+                                            <div key={hour} className="time-slot">
+                                                {/* Render events */}
+                                            </div>
+                                        ))}
+
+                                        {/* Render events for this day */}
+                                        {getEventsForDate(date).map(event => (
+                                            <div
+                                                key={event.id}
+                                                className="calendar-event"
+                                                style={{
+                                                    top: `${getTimePosition(event.time) * 48}px`,
+                                                    height: `${event.duration * 48}px`,
+                                                    backgroundColor: event.color,
+                                                }}
+                                            >
+                                                <div className="event-title">{event.title}</div>
+                                                <div className="event-time">{event.time}</div>
+                                            </div>
+                                        ))}
+
+                                        {/* Current time line */}
+                                        {isToday(date) && (
+                                            <div
+                                                className="current-time-line"
+                                                style={{
+                                                    top: `${((new Date().getHours() - 8) * 60 + new Date().getMinutes()) / 60 * 48}px`
+                                                }}
+                                            >
+                                                <div className="time-dot"></div>
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
-
-                                {/* Render events for this day */}
-                                {getEventsForDate(date).map(event => (
-                                    <div
-                                        key={event.id}
-                                        className="calendar-event"
-                                        style={{
-                                            top: `${getTimePosition(event.time) * 48}px`,
-                                            height: `${event.duration * 48}px`,
-                                            backgroundColor: event.color,
-                                        }}
-                                    >
-                                        <div className="event-title">{event.title}</div>
-                                        <div className="event-time">{event.time}</div>
-                                    </div>
-                                ))}
-
-                                {/* Current time line */}
-                                {isToday(date) && (
-                                    <div
-                                        className="current-time-line"
-                                        style={{
-                                            top: `${((new Date().getHours() - 8) * 60 + new Date().getMinutes()) / 60 * 48}px`
-                                        }}
-                                    >
-                                        <div className="time-dot"></div>
-                                    </div>
-                                )}
                             </div>
-                        ))}
-                    </div>
-                </div>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );

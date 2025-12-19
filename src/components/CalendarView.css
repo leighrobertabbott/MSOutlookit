@@ -425,3 +425,231 @@
     background: var(--scrollbar-thumb);
     border-radius: 4px;
 }
+
+/* --- Schedule View Styles --- */
+.schedule-view-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+    position: relative;
+    height: 100%;
+}
+
+.schedule-resources {
+    width: 250px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-primary);
+    background-color: var(--bg-secondary);
+    /* Resource pane background */
+    overflow-y: hidden;
+    /* Syncs with grid scroll via JS or just stays static if grid scrolls y? Ideally synced. For MVP allow manual or sticky */
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.resource-header-gutter {
+    height: 60px;
+    /* Match grid header height */
+    border-bottom: 1px solid var(--border-primary);
+    background: var(--bg-primary);
+    display: flex;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.date-header-row {
+    width: 100%;
+    padding: 4px 8px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+/* Specific styling for resource items */
+.resource-row-header {
+    height: 30px;
+    /* Fixed height for alignment */
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    border-bottom: 1px solid var(--border-primary);
+    background-color: var(--bg-secondary);
+    border-left: 4px solid transparent;
+    /* Colored border applied inline */
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Alternate row colors */
+.resource-row-header:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+[data-theme="dark"] .resource-row-header:nth-child(even) {
+    background-color: #2d2d2d;
+}
+
+.resource-icon {
+    margin-right: 8px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+}
+
+/* Timeline Scroll Area */
+.schedule-grid-scroll {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.schedule-time-header {
+    height: 60px;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-primary);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    min-width: max-content;
+    flex-shrink: 0;
+}
+
+.schedule-day-band {
+    display: flex;
+    height: 24px;
+    border-bottom: 1px solid var(--border-secondary);
+    background-color: var(--bg-tertiary);
+}
+
+.day-label {
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-right: 1px solid var(--border-secondary);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    background: var(--bg-tertiary);
+}
+
+.schedule-hour-band {
+    display: flex;
+    height: 36px;
+    position: relative;
+    background-color: var(--bg-primary);
+}
+
+.hour-label {
+    position: absolute;
+    font-size: 11px;
+    color: var(--text-muted);
+    padding-left: 4px;
+    border-left: 1px solid var(--border-secondary);
+    height: 100%;
+    width: 200px;
+    /* Match grid cell width */
+    box-sizing: border-box;
+    padding-top: 8px;
+}
+
+.schedule-grid-content {
+    position: relative;
+    min-width: max-content;
+    /* Determine height by rows */
+}
+
+.schedule-resource-lane {
+    height: 30px;
+    /* Match resource header height */
+    position: relative;
+    border-bottom: 1px solid var(--border-secondary);
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+/* Grid lines for lanes */
+.grid-cell {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    border-left: 1px solid var(--border-secondary);
+    /* Dotted or solid? Screenshot looks solid light */
+    pointer-events: none;
+    box-sizing: border-box;
+}
+
+/* Events */
+.schedule-event {
+    position: absolute;
+    /* top, left, width set inline */
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    font-size: 11px;
+    color: #000;
+    /* Default text color, some override to white */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-radius: 0px;
+    z-index: 5;
+    /* box-shadow: 0 1px 2px rgba(0,0,0,0.1); */
+    font-weight: 600;
+}
+
+/* Text color override for darker backgrounds */
+.schedule-event[style*="background-color: #0078d4"],
+.schedule-event[style*="background-color: #e91e63"],
+.schedule-event[style*="background-color: #3f51b5"],
+.schedule-event[style*="background-color: #e06666"] {
+    color: #fff;
+}
+
+.schedule-event-title {
+    font-weight: 600;
+}
+
+/* Hatched pattern */
+.schedule-event.hatched {
+    background-image: repeating-linear-gradient(45deg,
+            rgba(255, 255, 255, 0.4),
+            rgba(255, 255, 255, 0.4) 5px,
+            transparent 5px,
+            transparent 10px);
+}
+
+/* Time Marker */
+.schedule-current-time {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #000;
+    /* Black line */
+    z-index: 20;
+    pointer-events: none;
+}
+
+.time-dot-top {
+    position: absolute;
+    top: -4px;
+    left: -3px;
+    width: 7px;
+    height: 7px;
+    background-color: #000;
+    border-radius: 50%;
+}

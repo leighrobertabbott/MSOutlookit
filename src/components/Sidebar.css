@@ -167,7 +167,7 @@
   padding-left: 8px;
 }
 
-/* Folder Items */
+/* Real Reddit Sidebar Items */
 .sidebar-item {
   display: flex;
   align-items: center;
@@ -182,20 +182,66 @@
   position: relative;
 }
 
-.sidebar-item.indented {
-  padding-left: 40px;
+/* Fake Outlook Sidebar Items (Stealth) */
+.sidebar-item.fake-item {
+  padding: 2px 8px 2px 8px;
+  /* Tighter padding */
+  gap: 4px;
+  font-size: 11px;
+  /* Smaller font match */
+  color: #e1e1e1;
+  /* Lighter text */
+}
+
+/* Light Mode Overrides for Fake Items */
+[data-theme="light"] .sidebar-item.fake-item {
+  color: #000000;
+}
+
+[data-theme="light"] .sidebar-item.fake-item .item-chevron {
+  color: #666;
+}
+
+.sidebar-item.fake-item .item-chevron {
+  width: 16px;
+  height: 16px;
+  color: #999;
+}
+
+.sidebar-item.fake-item.indented {
+  padding-left: 24px;
 }
 
 .sidebar-item:hover {
   background: var(--bg-hover);
 }
 
-.sidebar-item.selected {
+.sidebar-item.fake-item.selected {
+  background: #373737;
+  /* Dark gray selection */
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Light mode selection override */
+[data-theme="light"] .sidebar-item.fake-item.selected {
+  background: #e1e1e1;
+  /* Light gray selection matching standard */
+  color: #000;
+}
+
+.sidebar-item.fake-item.selected::before {
+  display: none;
+  /* remove accent bar for fake items */
+}
+
+/* Real items selected style */
+.sidebar-item:not(.fake-item).selected {
   background: var(--bg-selected);
   color: var(--text-primary);
 }
 
-.sidebar-item.selected::before {
+.sidebar-item:not(.fake-item).selected::before {
   content: '';
   position: absolute;
   left: 0;
@@ -230,9 +276,15 @@
 
 .folder-count {
   font-size: 11px;
-  color: var(--accent-primary);
+  color: #0078d4;
+  /* Outlook Blue */
   font-weight: 600;
   margin-left: auto;
+}
+
+.folder-count.selected {
+  color: #58a6ff;
+  /* Lighter blue on selection? or stick to brand blue */
 }
 
 /* Add button at bottom */
