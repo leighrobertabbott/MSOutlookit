@@ -3,7 +3,7 @@ import { searchSubreddits } from '../services/redditApi';
 import { useTheme } from '../ThemeContext';
 import './Toolbar.css';
 
-function Toolbar({ onNewMessage, onOpenAccountInfo, onSearch, onOpenAddressBook, onOpenOptions }) {
+function Toolbar({ onNewMessage, onOpenAccountInfo, onSearch, onOpenAddressBook, onOpenOptions, onShareToTeams, selectedPost }) {
   const { settings } = useTheme();
   const [activeTab, setActiveTab] = useState('Home');
   const [searchValue, setSearchValue] = useState('');
@@ -266,7 +266,7 @@ function Toolbar({ onNewMessage, onOpenAccountInfo, onSearch, onOpenAddressBook,
 
       {/* Ribbon Content */}
       <div className="ribbon-content">
-        {activeTab === 'Home' && <HomeRibbon onNewMessage={onNewMessage} onOpenAddressBook={onOpenAddressBook} />}
+        {activeTab === 'Home' && <HomeRibbon onNewMessage={onNewMessage} onOpenAddressBook={onOpenAddressBook} onShareToTeams={onShareToTeams} selectedPost={selectedPost} />}
         {activeTab === 'SendReceive' && <SendReceiveRibbon />}
         {activeTab === 'View' && <ViewRibbon />}
         {activeTab === 'Help' && <HelpRibbon />}
@@ -276,7 +276,7 @@ function Toolbar({ onNewMessage, onOpenAccountInfo, onSearch, onOpenAddressBook,
   );
 }
 
-function HomeRibbon({ onNewMessage, onOpenAddressBook }) {
+function HomeRibbon({ onNewMessage, onOpenAddressBook, onShareToTeams, selectedPost }) {
   return (
     <div className="ribbon-panel">
       {/* New Email Button */}
@@ -325,7 +325,12 @@ function HomeRibbon({ onNewMessage, onOpenAddressBook }) {
       <div className="ribbon-separator"></div>
 
       {/* Share to Teams */}
-      <button className="ribbon-button" title="Share to Teams">
+      <button
+        className="ribbon-button"
+        title="Share to Teams"
+        onClick={onShareToTeams}
+        disabled={!selectedPost}
+      >
         <svg className="ribbon-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
           <circle cx="8" cy="6" r="4" fill="#5059c9" />
           <circle cx="12" cy="5" r="2.5" fill="#7b83eb" />

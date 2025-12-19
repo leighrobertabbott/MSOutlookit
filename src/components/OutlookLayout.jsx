@@ -8,6 +8,7 @@ import StatusBar from './StatusBar';
 import AddressBook from './AddressBook';
 import OutlookOptions from './OutlookOptions';
 import CalendarView from './CalendarView';
+import ShareToTeams from './ShareToTeams';
 import { useTheme } from '../ThemeContext';
 import { fetchSubreddit, fetchPostComments, formatPostAsEmail } from '../services/redditApi';
 import './OutlookLayout.css';
@@ -22,6 +23,7 @@ function OutlookLayout({ onOpenWindow }) {
   const [after, setAfter] = useState(null);
   const [showAddressBook, setShowAddressBook] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [showShareToTeams, setShowShareToTeams] = useState(false);
   const { settings: appSettings, updateSettings: setAppSettings } = useTheme();
   const [folders, setFolders] = useState([
     { id: 'frontpage', name: 'Front Page', subreddit: 'hot' },
@@ -189,6 +191,8 @@ function OutlookLayout({ onOpenWindow }) {
         onSearch={handleSearch}
         onOpenAddressBook={() => setShowAddressBook(true)}
         onOpenOptions={() => setShowOptions(true)}
+        onShareToTeams={() => setShowShareToTeams(true)}
+        selectedPost={selectedPost}
       />
       <div className="outlook-content">
         <NavRail activeView={activeView} onViewChange={setActiveView} onOpenOptions={() => setShowOptions(true)} />
@@ -250,6 +254,13 @@ function OutlookLayout({ onOpenWindow }) {
           onClose={() => setShowOptions(false)}
           settings={appSettings}
           onSaveSettings={(newSettings) => setAppSettings(newSettings)}
+        />
+      )}
+      {showShareToTeams && (
+        <ShareToTeams
+          onClose={() => setShowShareToTeams(false)}
+          email={selectedPost}
+          settings={appSettings}
         />
       )}
     </div>

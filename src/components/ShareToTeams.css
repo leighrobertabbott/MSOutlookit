@@ -1,0 +1,344 @@
+/* Share to Teams Dialog */
+.teams-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teams-window {
+    width: 560px;
+    max-height: 90vh;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Title Bar */
+.teams-titlebar {
+    height: 40px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px 0 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.teams-titlebar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.teams-title-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.teams-titlebar-left span {
+    font-size: 12px;
+    color: #333333;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.teams-titlebar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.teams-more-btn {
+    color: #666666;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.teams-org {
+    font-size: 12px;
+    color: #666666;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.teams-title-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #0078d4;
+    color: white;
+    font-size: 10px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teams-title-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: #666666;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teams-title-btn:hover {
+    background: #e0e0e0;
+}
+
+.teams-title-btn.close:hover {
+    background: #c42b1c;
+    color: white;
+}
+
+/* Content */
+.teams-content {
+    padding: 24px 32px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Header */
+.teams-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.teams-logo {
+    flex-shrink: 0;
+}
+
+.teams-header h1 {
+    flex: 1;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.teams-header-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #0078d4;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Fields */
+.teams-field {
+    margin-bottom: 20px;
+}
+
+.teams-field label {
+    display: block;
+    font-size: 14px;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.teams-select {
+    position: relative;
+}
+
+.teams-select input {
+    width: 100%;
+    height: 40px;
+    padding: 0 36px 0 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #1a1a1a;
+    font-family: 'Segoe UI', sans-serif;
+    background: #ffffff;
+}
+
+.teams-select input::placeholder {
+    color: #888888;
+}
+
+.teams-select input:focus {
+    outline: none;
+    border-color: #0078d4;
+}
+
+.teams-select-chevron {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666666;
+    pointer-events: none;
+}
+
+.teams-message {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #1a1a1a;
+    font-family: 'Segoe UI', sans-serif;
+    resize: none;
+    background: #f9f9f9;
+}
+
+.teams-message:focus {
+    outline: none;
+    border-color: #0078d4;
+    background: #ffffff;
+}
+
+/* Email Preview Card */
+.teams-email-preview {
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.email-preview-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.email-preview-header svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.email-preview-subject {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.4;
+}
+
+.email-preview-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.email-preview-sender {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.email-preview-email {
+    font-size: 13px;
+    color: #0078d4;
+    text-decoration: none;
+}
+
+.email-preview-email:hover {
+    text-decoration: underline;
+}
+
+.email-preview-to {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 4px;
+}
+
+.email-preview-date {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 12px;
+}
+
+.email-preview-link {
+    display: block;
+    font-size: 13px;
+    color: #0078d4;
+    text-decoration: none;
+    margin-bottom: 12px;
+}
+
+.email-preview-link:hover {
+    text-decoration: underline;
+}
+
+.email-preview-body {
+    font-size: 13px;
+    color: #333333;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Attachments checkbox */
+.teams-attachments {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #888888;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.teams-attachments input {
+    width: 16px;
+    height: 16px;
+    accent-color: #0078d4;
+}
+
+/* Footer / Share button */
+.teams-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.teams-share-btn {
+    padding: 8px 24px;
+    background: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #888888;
+    cursor: not-allowed;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.teams-share-btn:not(:disabled) {
+    background: #5059c9;
+    color: white;
+    cursor: pointer;
+}
+
+.teams-share-btn:not(:disabled):hover {
+    background: #4048b0;
+}

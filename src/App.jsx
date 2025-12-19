@@ -4,6 +4,7 @@ import OutlookLayout from './components/OutlookLayout';
 import WindowManager from './components/WindowManager';
 import OutlookOptions from './components/OutlookOptions';
 import SetupDialog from './components/SetupDialog';
+import { useNotifications, NotificationContainer } from './components/ToastNotification';
 import './theme.css';
 import './App.css';
 
@@ -13,6 +14,9 @@ function AppContent() {
   const [showOptions, setShowOptions] = useState(false);
   const [showSetup, setShowSetup] = useState(false);
   const { settings: appSettings, updateSettings: setAppSettings } = useTheme();
+
+  // Toast notifications - every 2 minutes
+  const { notifications, dismissNotification, deleteNotification, flagNotification } = useNotifications(true, 120000);
 
   // Check if setup is needed on first load
   useEffect(() => {
@@ -89,6 +93,12 @@ function AppContent() {
       {showSetup && (
         <SetupDialog onComplete={handleSetupComplete} />
       )}
+      <NotificationContainer
+        notifications={notifications}
+        onDismiss={dismissNotification}
+        onDelete={deleteNotification}
+        onFlag={flagNotification}
+      />
     </div>
   );
 }
