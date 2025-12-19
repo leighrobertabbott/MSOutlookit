@@ -30,12 +30,18 @@ function ShareToTeams({ onClose, email, settings }) {
                 {/* Title Bar */}
                 <div className="teams-titlebar">
                     <div className="teams-titlebar-left">
-                        <svg className="teams-title-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <circle cx="5" cy="3" r="2" fill="#5059c9" />
-                            <circle cx="11" cy="3" r="2" fill="#7b83eb" />
-                            <circle cx="8" cy="6" r="2.5" fill="#5059c9" />
-                            <rect x="2" y="7" width="6" height="7" rx="1" fill="#5059c9" />
-                            <rect x="8" y="5" width="6" height="7" rx="1" fill="#7b83eb" />
+                        <svg className="teams-title-icon" width="16" height="16" viewBox="0 0 2229 2074" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#5059C9" d="M1554.637,777.5h575.713c54.391,0,98.483,44.092,98.483,98.483c0,0,0,0,0,0v524.398 c0,199.901-162.051,361.952-361.952,361.952h0h-1.711c-199.901,0.028-361.975-162-362.004-361.901c0-0.017,0-0.034,0-0.052V828.971 C1503.167,800.544,1526.211,777.5,1554.637,777.5L1554.637,777.5z" />
+                            <circle fill="#5059C9" cx="1943.75" cy="440.583" r="233.25" />
+                            <circle fill="#7B83EB" cx="1218.083" cy="336.917" r="336.917" />
+                            <path fill="#7B83EB" d="M1667.323,777.5H717.01c-53.743,1.33-96.257,45.931-95.01,99.676v598.105 c-7.505,322.519,247.657,590.16,570.167,598.053c322.51-7.893,577.671-275.534,570.167-598.053V877.176 C1763.579,823.431,1721.066,778.83,1667.323,777.5z" />
+                            <linearGradient id="a_icon" gradientUnits="userSpaceOnUse" x1="198.099" y1="1683.0726" x2="942.2344" y2="394.2607" gradientTransform="matrix(1 0 0 -1 0 2075.3333)">
+                                <stop offset="0" stopColor="#5a62c3" />
+                                <stop offset=".5" stopColor="#4d55bd" />
+                                <stop offset="1" stopColor="#3940ab" />
+                            </linearGradient>
+                            <path fill="url(#a_icon)" d="M95.01,466.5h950.312c52.473,0,95.01,42.538,95.01,95.01v950.312c0,52.473-42.538,95.01-95.01,95.01 H95.01c-52.473,0-95.01-42.538-95.01-95.01V561.51C0,509.038,42.538,466.5,95.01,466.5z" />
+                            <path fill="#FFF" d="M820.211,828.193H630.241v517.297H509.211V828.193H320.123V727.844h500.088V828.193z" />
                         </svg>
                         <span>Share to Teams</span>
                     </div>
@@ -54,12 +60,18 @@ function ShareToTeams({ onClose, email, settings }) {
                     {/* Header */}
                     <div className="teams-header">
                         <div className="teams-logo">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                                <circle cx="12" cy="8" r="5" fill="#5059c9" />
-                                <circle cx="28" cy="8" r="5" fill="#7b83eb" />
-                                <circle cx="20" cy="14" r="6" fill="#5059c9" />
-                                <rect x="6" y="16" width="14" height="16" rx="2" fill="#5059c9" />
-                                <rect x="20" y="12" width="14" height="16" rx="2" fill="#7b83eb" />
+                            <svg width="40" height="40" viewBox="0 0 2229 2074" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#5059C9" d="M1554.637,777.5h575.713c54.391,0,98.483,44.092,98.483,98.483c0,0,0,0,0,0v524.398 c0,199.901-162.051,361.952-361.952,361.952h0h-1.711c-199.901,0.028-361.975-162-362.004-361.901c0-0.017,0-0.034,0-0.052V828.971 C1503.167,800.544,1526.211,777.5,1554.637,777.5L1554.637,777.5z" />
+                                <circle fill="#5059C9" cx="1943.75" cy="440.583" r="233.25" />
+                                <circle fill="#7B83EB" cx="1218.083" cy="336.917" r="336.917" />
+                                <path fill="#7B83EB" d="M1667.323,777.5H717.01c-53.743,1.33-96.257,45.931-95.01,99.676v598.105 c-7.505,322.519,247.657,590.16,570.167,598.053c322.51-7.893,577.671-275.534,570.167-598.053V877.176 C1763.579,823.431,1721.066,778.83,1667.323,777.5z" />
+                                <linearGradient id="a_logo" gradientUnits="userSpaceOnUse" x1="198.099" y1="1683.0726" x2="942.2344" y2="394.2607" gradientTransform="matrix(1 0 0 -1 0 2075.3333)">
+                                    <stop offset="0" stopColor="#5a62c3" />
+                                    <stop offset=".5" stopColor="#4d55bd" />
+                                    <stop offset="1" stopColor="#3940ab" />
+                                </linearGradient>
+                                <path fill="url(#a_logo)" d="M95.01,466.5h950.312c52.473,0,95.01,42.538,95.01,95.01v950.312c0,52.473-42.538,95.01-95.01,95.01 H95.01c-52.473,0-95.01-42.538-95.01-95.01V561.51C0,509.038,42.538,466.5,95.01,466.5z" />
+                                <path fill="#FFF" d="M820.211,828.193H630.241v517.297H509.211V828.193H320.123V727.844h500.088V828.193z" />
                             </svg>
                         </div>
                         <h1>Share to Microsoft Teams</h1>
