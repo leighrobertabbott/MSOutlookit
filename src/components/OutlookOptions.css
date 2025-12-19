@@ -325,3 +325,166 @@
 .options-content::-webkit-scrollbar-thumb:hover {
     background: var(--border-secondary);
 }
+
+/* Mail Options Specific Styles */
+.mail-options .options-section {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--dialog-border);
+}
+
+.mail-options .options-section:last-child {
+    border-bottom: none;
+}
+
+.section-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.section-row.with-icon {
+    gap: 16px;
+}
+
+.section-row.with-icon>svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.section-row .section-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.section-row .section-content>span {
+    font-size: 12px;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.section-row .options-btn.secondary {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* ABC Icon for spelling */
+.abc-icon {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-muted);
+    min-width: 32px;
+    text-align: center;
+    text-decoration: line-through;
+    text-decoration-color: #c00000;
+}
+
+/* Stationery A^a icon */
+.stationery-icon {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary);
+    min-width: 32px;
+    text-align: center;
+}
+
+.stationery-icon sup {
+    font-size: 10px;
+}
+
+/* Option note text */
+.option-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+/* Select with icon */
+.select-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.select-with-icon select {
+    height: 26px;
+    background: var(--dialog-input-bg);
+    border: 1px solid var(--dialog-input-border);
+    color: var(--text-primary);
+    padding: 0 8px;
+    font-size: 12px;
+    font-family: 'Segoe UI', sans-serif;
+    min-width: 180px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%23666666' d='M0 2l4 4 4-4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 24px;
+    cursor: pointer;
+}
+
+.select-with-icon svg {
+    flex-shrink: 0;
+}
+
+/* Medium and tiny input widths */
+.form-row input.medium {
+    min-width: 120px;
+    width: 120px;
+}
+
+.form-row input.tiny {
+    width: 50px;
+    min-width: 50px;
+    text-align: center;
+}
+
+/* Number input */
+.form-row input[type="number"] {
+    height: 26px;
+    background: var(--dialog-input-bg);
+    border: 1px solid var(--dialog-input-border);
+    color: var(--text-primary);
+    padding: 0 8px;
+    font-size: 12px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Disabled state */
+.disabled-row {
+    opacity: 0.5;
+}
+
+.options-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Radio row indent */
+.radio-row.indent {
+    margin-left: 20px;
+}
+
+/* Inline checkbox with input */
+.form-row .checkbox-row {
+    margin-bottom: 0;
+}
+
+/* Make checkboxes in inline rows work better */
+.form-row.inline .checkbox-row+input,
+.form-row.inline .checkbox-row+select {
+    margin-left: 8px;
+}
+
+/* Section content sub-items spacing */
+.section-content .checkbox-row,
+.section-content .radio-row {
+    margin-bottom: 4px;
+}
+
+.section-content .form-row {
+    margin-bottom: 6px;
+}

@@ -28,7 +28,7 @@ function AppContent() {
       setAppSettings({
         ...appSettings,
         email: userDetails.email,
-        fullName: userDetails.fullName,
+        userName: userDetails.fullName,  // Map fullName to userName
         initials: userDetails.initials,
         domain: userDetails.domain
       });
