@@ -53,9 +53,26 @@ function SetupDialog({ onComplete }) {
                 <button className="setup-close-btn" onClick={() => onComplete(null)}>×</button>
 
                 <div className="setup-logo">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-                        <rect x="2" y="2" width="40" height="40" rx="4" fill="#0078d4" />
-                        <text x="14" y="30" fontSize="24" fontWeight="bold" fill="white">O</text>
+                    <svg className="setup-logo-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        {/* Modern Outlook envelope logo */}
+                        <defs>
+                            <linearGradient id="envGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#0078d4" />
+                                <stop offset="100%" stopColor="#005a9e" />
+                            </linearGradient>
+                        </defs>
+                        {/* Envelope body */}
+                        <path d="M4 14C4 12.9 4.9 12 6 12H42C43.1 12 44 12.9 44 14V38C44 39.1 43.1 40 42 40H6C4.9 40 4 39.1 4 38V14Z" fill="url(#envGrad)" />
+                        {/* Envelope flap */}
+                        <path d="M4 14L24 28L44 14" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                        {/* Paper sliding out */}
+                        <rect x="12" y="4" width="24" height="20" rx="2" fill="#ffffff" stroke="#0078d4" strokeWidth="1" />
+                        {/* Paper lines */}
+                        <line x1="16" y1="10" x2="32" y2="10" stroke="#0078d4" strokeWidth="1.5" strokeLinecap="round" />
+                        <line x1="16" y1="15" x2="28" y2="15" stroke="#0078d4" strokeWidth="1.5" strokeLinecap="round" />
+                        {/* O badge */}
+                        <circle cx="12" cy="32" r="8" fill="#0078d4" stroke="#ffffff" strokeWidth="2" />
+                        <text x="12" y="36" fontSize="10" fontWeight="bold" fill="white" textAnchor="middle">O</text>
                     </svg>
                     <span className="setup-logo-text">Outlook</span>
                 </div>

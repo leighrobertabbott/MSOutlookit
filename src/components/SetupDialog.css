@@ -4,36 +4,42 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10000;
 }
 
+/* Dark mode by default */
 .setup-dialog {
-    width: 460px;
+    width: 480px;
     background: #2d2d2d;
-    border: 1px solid #404040;
+    border-radius: 8px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     position: relative;
-    padding: 48px 40px 32px;
+    padding: 60px 48px 40px;
+}
+
+[data-theme="light"] .setup-dialog {
+    background: #ffffff;
 }
 
 .setup-close-btn {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 12px;
+    right: 12px;
     width: 32px;
     height: 32px;
     background: transparent;
     border: none;
     color: #999999;
-    font-size: 20px;
+    font-size: 22px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 4px;
 }
 
 .setup-close-btn:hover {
@@ -41,6 +47,16 @@
     color: #ffffff;
 }
 
+[data-theme="light"] .setup-close-btn {
+    color: #666666;
+}
+
+[data-theme="light"] .setup-close-btn:hover {
+    background: #f0f0f0;
+    color: #333333;
+}
+
+/* Modern Outlook Logo */
 .setup-logo {
     display: flex;
     align-items: center;
@@ -49,15 +65,18 @@
     margin-bottom: 48px;
 }
 
-.setup-logo svg {
+.setup-logo-icon {
+    width: 48px;
+    height: 48px;
     flex-shrink: 0;
 }
 
 .setup-logo-text {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 300;
-    color: #ffffff;
+    color: #0078d4;
     font-family: 'Segoe UI', sans-serif;
+    letter-spacing: -0.5px;
 }
 
 .setup-form {
@@ -65,24 +84,32 @@
     flex-direction: column;
 }
 
+/* Label - Dark mode default */
 .setup-label {
-    font-size: 13px;
+    font-size: 14px;
     color: #cccccc;
     margin-bottom: 8px;
     font-family: 'Segoe UI', sans-serif;
+    font-weight: 400;
 }
 
+[data-theme="light"] .setup-label {
+    color: #1a1a1a;
+}
+
+/* Modern rounded input box - Dark mode */
 .setup-input {
     width: 100%;
-    padding: 10px 12px;
+    padding: 12px 14px;
     background: #3d3d3d;
-    border: none;
-    border-bottom: 2px solid #0078d4;
+    border: 1px solid #555555;
+    border-radius: 4px;
     color: #ffffff;
     font-size: 14px;
     font-family: 'Segoe UI', sans-serif;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .setup-input::placeholder {
@@ -90,23 +117,46 @@
 }
 
 .setup-input:focus {
-    background: #454545;
+    border-color: #0078d4;
+    box-shadow: 0 0 0 1px #0078d4;
 }
 
+[data-theme="light"] .setup-input {
+    background: #ffffff;
+    border-color: #d1d1d1;
+    color: #1a1a1a;
+}
+
+[data-theme="light"] .setup-input::placeholder {
+    color: #999999;
+}
+
+/* Modern bordered Advanced Options button - Dark mode */
 .setup-advanced-btn {
     align-self: center;
-    padding: 6px 16px;
+    padding: 8px 16px;
     background: transparent;
-    border: 1px solid #666666;
+    border: 1px solid #888888;
+    border-radius: 4px;
     color: #ffffff;
     font-size: 13px;
     font-family: 'Segoe UI', sans-serif;
     cursor: pointer;
     margin-bottom: 16px;
+    font-weight: 500;
 }
 
 .setup-advanced-btn:hover {
     background: #404040;
+}
+
+[data-theme="light"] .setup-advanced-btn {
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+}
+
+[data-theme="light"] .setup-advanced-btn:hover {
+    background: #f5f5f5;
 }
 
 .setup-advanced-fields {
@@ -126,29 +176,36 @@
     }
 }
 
+/* Checkbox row - Dark mode */
 .setup-checkbox-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 24px;
-    font-size: 13px;
+    gap: 10px;
+    margin-bottom: 28px;
+    font-size: 14px;
     color: #cccccc;
     font-family: 'Segoe UI', sans-serif;
 }
 
+[data-theme="light"] .setup-checkbox-row {
+    color: #1a1a1a;
+}
+
 .setup-checkbox {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     accent-color: #0078d4;
 }
 
+/* Modern Connect button */
 .setup-connect-btn {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: #0078d4;
     border: none;
+    border-radius: 4px;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     font-family: 'Segoe UI', sans-serif;
     cursor: pointer;
@@ -165,16 +222,24 @@
     cursor: not-allowed;
 }
 
+[data-theme="light"] .setup-connect-btn:disabled {
+    background: #cccccc;
+}
+
 .setup-footer {
-    margin-top: 16px;
+    margin-top: 20px;
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
     font-family: 'Segoe UI', sans-serif;
 }
 
 .setup-footer span {
     color: #888888;
     margin-right: 8px;
+}
+
+[data-theme="light"] .setup-footer span {
+    color: #666666;
 }
 
 .setup-footer a {
